@@ -18,11 +18,31 @@ namespace Aplicacao_Interativa.Controllers
             return View();
         }
 
+        public IActionResult Criar()
+        {
+            return View();
+        }
+
         [HttpPost]
         public IActionResult Criar(UsuarioModel usuario)
         {
-            _usuarioRepositorio.Adicionar(usuario);
-            return RedirectToAction("Index");  
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _usuarioRepositorio.Adicionar(usuario);
+                    TempData["MensagemSucesso"] = "O cadastro foi feito com sucesso";
+                    return RedirectToAction("Index", "Home");
+                }
+
+                return View("Index", "Home");
+            }
+            catch (System.Exception erro)
+            {
+                TempData["MensagemErro"] = $"Não foi possível realizar o cadastro. Detalhes: {erro.Message}";
+                return RedirectToAction("Index", "Home");
+            }
+            
         }
     }
 }

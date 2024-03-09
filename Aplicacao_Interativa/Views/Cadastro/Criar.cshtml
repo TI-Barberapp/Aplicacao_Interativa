@@ -1,0 +1,28 @@
+﻿@model UsuarioModel
+@{
+    ViewData["Title"] = "Cadastro";
+}
+
+<h1 class="display-4 text-center">Cadastro</h1>
+
+<form asp-controller="Cadastro" asp-action="Criar" method="post">
+  <div class="mb-3">
+    <label for="email">E-mail</label>
+    <input type="email" asp-for="Email" required class="form-control" placeholder="Digite seu e-mail"/>   
+  </div>
+  <div class="mb-3">
+    <label for="nome">Nome</label>
+    <input type="text" asp-for="Nome" required class="form-control" placeholder="Digite seu nome completo"/>
+  </div>
+  <div class="mb-3">
+    <label for="celualr">Celular</label>
+    <input type="text" asp-for="Celular" required class="form-control" placeholder="Digite seu celular"/>
+  </div>
+  <div class="mb-3">
+    <label for="senha">Senha</label>
+     <input type="password" asp-for="Senha" required class="form-control" placeholder="Digite sua senha"/>
+  </div>
+
+  <button type="submit" class="btn btn-primary btn-block w-100 my-1">Adicionar</button>
+  <a class="btn btn-secondary btn-block w-100 my-1" role="button" asp-controller="Home" asp-action="Index">Voltar</a>
+</form>

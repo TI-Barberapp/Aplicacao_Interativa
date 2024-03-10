@@ -1,5 +1,4 @@
 using Aplicacao_Interativa.Data;
-using Aplicacao_Interativa.Repositorio;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics.Metrics;
 using System.Security.Cryptography.X509Certificates;
@@ -19,7 +18,7 @@ namespace Aplicacao_Interativa
 
             builder.Services.AddDbContext<BancoContext>
                 (options => options.UseMySql(
-                    "server=\tsql110.infinityfree.com;initial catalog=DB_AplicacaoInterativa;uid=\tif0_36136178;pwd=SdnrscpZsEt",
+                    "server=localhost;initial catalog=ti_aplicacaointerativa;uid=root;pwd=1234",
                     Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.36-mysql")));
 
             

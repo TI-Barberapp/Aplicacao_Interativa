@@ -17,11 +17,10 @@ namespace Aplicacao_Interativa
 
 
 
-            var connectionString = builder.Configuration.GetConnectionString("DataBase");
-
-            builder.Services.AddEntityFrameworkSqlServer()
-                .AddDbContext<BancoContext>(o => o.UseSqlServer(connectionString));
-            builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
+            builder.Services.AddDbContext<BancoContext>
+                (options => options.UseMySql(
+                    "server=\tsql110.infinityfree.com;initial catalog=DB_AplicacaoInterativa;uid=\tif0_36136178;pwd=SdnrscpZsEt",
+                    Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.36-mysql")));
 
             
 

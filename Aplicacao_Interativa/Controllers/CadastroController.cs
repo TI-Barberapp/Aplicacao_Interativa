@@ -1,6 +1,5 @@
 ﻿using Aplicacao_Interativa.Data;
 using Aplicacao_Interativa.Models;
-using Aplicacao_Interativa.Repositorio;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

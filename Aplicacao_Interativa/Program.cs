@@ -1,5 +1,4 @@
 using Aplicacao_Interativa.Data;
-using Aplicacao_Interativa.Repositorio;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics.Metrics;
 using System.Security.Cryptography.X509Certificates;
@@ -21,7 +20,6 @@ namespace Aplicacao_Interativa
                 (options => options.UseMySql(
                     "server=localhost;initial catalog=TI_AplicacaoInterativa;uid=root;pwd=1234",
                     Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.36-mysql")));
-            builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
 
 
 

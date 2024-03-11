@@ -1,6 +1,7 @@
 ﻿using Aplicacao_Interativa.Data;
 using Aplicacao_Interativa.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Aplicacao_Interativa.Controllers
 {

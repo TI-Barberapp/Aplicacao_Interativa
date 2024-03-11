@@ -5,21 +5,4 @@
 <div class="text-center">
     <h1 class="display-4">Bem Vindo!</h1>
     <p>Conheça nosso site de reservas para barbearias.</p>
-    <a class="btn btn-primary mb-2" role="button" asp-controller="Cadastro" asp-action="Criar">Cadastrar</a>
-
-
-    @if(TempData["MensagemSucesso"] != null)
-    {
-        <div class="alert alert-success" role="alert">
-            @TempData["MensagemSucesso"]
-        </div>  
-    }
-    
-    @if (TempData["MensagemErro"] != null)
-    {
-            <div class="alert alert-success" role="alert">
-            @TempData["MensagemErro"]
-            </div>  
-    }
-
 </div>

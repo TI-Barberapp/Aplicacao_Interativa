@@ -34,10 +34,10 @@ namespace Aplicacao_Interativa.Controllers
                     _context.Add(usuario);
                     await _context.SaveChangesAsync();
                     TempData["MensagemSucesso"] = "O cadastro foi feito com sucesso";
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Login");
                 }
 
-                return View("Index", "Home");
+                return View("Index", "Login");
             }
             catch (System.Exception erro)
             {

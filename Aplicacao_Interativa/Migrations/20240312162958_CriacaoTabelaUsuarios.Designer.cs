@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Aplicacao_Interativa.Migrations
 {
     [DbContext(typeof(BancoContext))]
-    [Migration("20240310162325_Criacao-Inicial")]
-    partial class CriacaoInicial
+    [Migration("20240312162958_CriacaoTabelaUsuarios")]
+    partial class CriacaoTabelaUsuarios
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -37,6 +37,9 @@ namespace Aplicacao_Interativa.Migrations
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<int>("Perfil")
+                        .HasColumnType("int");
 
                     b.Property<string>("Senha")
                         .IsRequired()

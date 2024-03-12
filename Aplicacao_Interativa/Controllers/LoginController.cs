@@ -1,4 +1,5 @@
 ﻿using Aplicacao_Interativa.Data;
+using Aplicacao_Interativa.Enums;
 using Aplicacao_Interativa.Helper;
 using Aplicacao_Interativa.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -26,7 +27,19 @@ namespace Aplicacao_Interativa.Controllers
         public IActionResult Index()
         {
             //Se o usuário estiver logado retorna para a home
-            if (_sessao.BuscarSessaoUsuario() != null) return RedirectToAction("Index", "Home");
+            var usuarioLogado = _sessao.BuscarSessaoUsuario();
+
+            if (usuarioLogado != null)
+            {
+                if (usuarioLogado.Perfil == PerfilEnum.Barbeiro)
+                {
+                    return RedirectToAction("Index", "Barbeiro");
+                }
+                else if (usuarioLogado.Perfil == PerfilEnum.Cliente)
+                {
+                    return RedirectToAction("Index", "Cliente");
+                }
+            }
 
             return View();
         }
@@ -52,7 +65,15 @@ namespace Aplicacao_Interativa.Controllers
                         if (usuario.SenhaValida(loginModel.Senha))
                         {
                             _sessao.CriarSessaoUsuario(usuario);
-                            return RedirectToAction("Index", "Home");
+
+                            if (usuario.Perfil == PerfilEnum.Barbeiro)
+                            {
+                                return RedirectToAction("Index", "Barbeiro");
+                            }
+                            else if (usuario.Perfil == PerfilEnum.Cliente)
+                            {
+                                return RedirectToAction("Index", "Cliente");
+                            }
                         }
                         TempData["MensagemErro"] = $"Senha do usuário é inválida.";
                     }

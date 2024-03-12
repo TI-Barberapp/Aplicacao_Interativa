@@ -1,4 +1,5 @@
 ﻿using Aplicacao_Interativa.Data;
+using Aplicacao_Interativa.Helper;
 using Aplicacao_Interativa.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,10 +10,12 @@ namespace Aplicacao_Interativa.Controllers
     {
 
         private readonly BancoContext _context;
+        private readonly ISessao _sessao;
 
-        public LoginController(BancoContext context)
+        public LoginController(BancoContext context, ISessao sessao)
         {
             _context = context;
+            _sessao = sessao;
         }
 
         UsuarioModel BuscarPorLogin(string email)
@@ -22,7 +25,17 @@ namespace Aplicacao_Interativa.Controllers
 
         public IActionResult Index()
         {
+            //Se o usuário estiver logado retorna para a home
+            if (_sessao.BuscarSessaoUsuario() != null) return RedirectToAction("Index", "Home");
+
             return View();
+        }
+
+        public IActionResult Sair()
+        {
+            _sessao.RemoverSessaoUsuario();
+
+            return RedirectToAction("Index", "Login");
         }
 
         [HttpPost]
@@ -38,6 +51,7 @@ namespace Aplicacao_Interativa.Controllers
                     {
                         if (usuario.SenhaValida(loginModel.Senha))
                         {
+                            _sessao.CriarSessaoUsuario(usuario);
                             return RedirectToAction("Index", "Home");
                         }
                         TempData["MensagemErro"] = $"Senha do usuário é inválida.";

@@ -8,13 +8,9 @@
 
   <ItemGroup>
     <Compile Remove="NovaPasta1\**" />
-    <Compile Remove="NovaPasta\**" />
     <Content Remove="NovaPasta1\**" />
-    <Content Remove="NovaPasta\**" />
     <EmbeddedResource Remove="NovaPasta1\**" />
-    <EmbeddedResource Remove="NovaPasta\**" />
     <None Remove="NovaPasta1\**" />
-    <None Remove="NovaPasta\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,6 +29,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.2.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="6.0.2" />
   </ItemGroup>
 

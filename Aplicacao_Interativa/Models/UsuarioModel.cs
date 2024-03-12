@@ -1,4 +1,6 @@
-﻿namespace Aplicacao_Interativa.Models
+﻿using Aplicacao_Interativa.Enums;
+
+namespace Aplicacao_Interativa.Models
 {
     public class UsuarioModel
     {
@@ -9,7 +11,9 @@
 
         public string Celular { get; set; }
 
-        public string Senha { get; set; } 
+        public string Senha { get; set; }
+
+        public PerfilEnum Perfil { get; set; }
 
         public bool SenhaValida(string senha)
         {

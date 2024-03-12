@@ -1,5 +1,4 @@
 using Aplicacao_Interativa.Data;
-using Aplicacao_Interativa.Repositorio;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics.Metrics;
 using System.Security.Cryptography.X509Certificates;
@@ -17,13 +16,12 @@ namespace Aplicacao_Interativa
 
 
 
-            var connectionString = builder.Configuration.GetConnectionString("DataBase");
+            builder.Services.AddDbContext<BancoContext>
+                (options => options.UseMySql(
+                    "server=localhost;initial catalog=TI_AplicacaoInterativa;uid=root;pwd=1234",
+                    Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.36-mysql")));
 
-            builder.Services.AddEntityFrameworkSqlServer()
-                .AddDbContext<BancoContext>(o => o.UseSqlServer(connectionString));
-            builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
 
-            
 
             var app = builder.Build();
 
@@ -45,7 +43,7 @@ namespace Aplicacao_Interativa
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Login}/{action=Index}/{id?}");
 
             app.Run();
         }

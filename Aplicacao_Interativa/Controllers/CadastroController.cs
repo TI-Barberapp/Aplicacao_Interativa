@@ -1,16 +1,17 @@
-﻿using Aplicacao_Interativa.Models;
-using Aplicacao_Interativa.Repositorio;
+﻿using Aplicacao_Interativa.Data;
+using Aplicacao_Interativa.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Aplicacao_Interativa.Controllers
 {
     public class CadastroController : Controller
     {
-        private readonly IUsuarioRepositorio _usuarioRepositorio;
+        private readonly BancoContext _context;
 
-        public CadastroController(IUsuarioRepositorio usuarioRepositorio)
+        public CadastroController(BancoContext context)
         {
-            _usuarioRepositorio = usuarioRepositorio;
+            _context = context;
         }
 
         public IActionResult Index()
@@ -24,25 +25,25 @@ namespace Aplicacao_Interativa.Controllers
         }
 
         [HttpPost]
-        public IActionResult Criar(UsuarioModel usuario)
+        public async Task<IActionResult> Criar(UsuarioModel usuario)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _usuarioRepositorio.Adicionar(usuario);
+                    _context.Add(usuario);
+                    await _context.SaveChangesAsync();
                     TempData["MensagemSucesso"] = "O cadastro foi feito com sucesso";
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Login");
                 }
 
-                return View("Index", "Home");
+                return View("Index", "Login");
             }
             catch (System.Exception erro)
             {
                 TempData["MensagemErro"] = $"Não foi possível realizar o cadastro. Detalhes: {erro.Message}";
                 return RedirectToAction("Index", "Home");
             }
-            
         }
     }
 }

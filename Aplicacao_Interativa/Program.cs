@@ -1,4 +1,5 @@
 using Aplicacao_Interativa.Data;
+using Aplicacao_Interativa.Helper;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics.Metrics;
 using System.Security.Cryptography.X509Certificates;
@@ -21,7 +22,13 @@ namespace Aplicacao_Interativa
                     "server=localhost;initial catalog=TI_AplicacaoInterativa;uid=root;pwd=1234",
                     Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.36-mysql")));
 
+            builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
+            builder.Services.AddScoped<ISessao, Sessao>();
+            builder.Services.AddSession(o => {
+                o.Cookie.HttpOnly = true;
+                o.Cookie.IsEssential = true;
+            });
 
             var app = builder.Build();
 
@@ -40,6 +47,8 @@ namespace Aplicacao_Interativa
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.MapControllerRoute(
                 name: "default",

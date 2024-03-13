@@ -19,7 +19,7 @@ namespace Aplicacao_Interativa
 
             builder.Services.AddDbContext<BancoContext>
                 (options => options.UseMySql(
-                    "server=localhost;initial catalog=TI_AplicacaoInterativa;uid=root;pwd=1234",
+                    "server=dbadsappinterativa.mysql.database.azure.com;initial catalog=BD_AplicacaoInterativa;uid=barberuseradmin;pwd=ads@1234",
                     Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.36-mysql")));
 
             builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

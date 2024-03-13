@@ -33,6 +33,17 @@
     
 </form>
 
-<div>
-    <p>Não tem um login? <a asp-controller="Cadastro" asp-action="Criar">Faça seu cadastro</a></p>
+<div class="d-flex justify-content-between">
+    <div>
+        <p class="mb-4 text-sm">
+             Esqueceu a senha? 
+             <a asp-controller="Cadastro" asp-action="Criar" class="linkcadastro text-primary text-gradient font-weight-bold">Redefinir Senha</a>
+        </p>
+    </div>
+    <div>
+        <p class="mb-4 text-sm">
+             Não tem um login? 
+            <a asp-controller="Cadastro" asp-action="Criar" class="linkcadastro text-primary text-gradient font-weight-bold">Faça seu cadastro</a>
+        </p>
+    </div>
 </div>

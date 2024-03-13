@@ -1,4 +1,5 @@
 ﻿using Aplicacao_Interativa.Enums;
+using Aplicacao_Interativa.Helper;
 
 namespace Aplicacao_Interativa.Models
 {
@@ -17,7 +18,12 @@ namespace Aplicacao_Interativa.Models
 
         public bool SenhaValida(string senha)
         {
-            return Senha == senha;
+            return Senha == senha.GerarHash();
+        }
+
+        public void SetGerarHash()
+        {
+            Senha = Senha.GerarHash();
         }
     }
 }

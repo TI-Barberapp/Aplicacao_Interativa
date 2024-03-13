@@ -32,6 +32,7 @@ namespace Aplicacao_Interativa.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    usuario.SetGerarHash();
                     _context.Add(usuario);
                     await _context.SaveChangesAsync();
                     TempData["MensagemSucesso"] = "O cadastro foi feito com sucesso";

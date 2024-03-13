@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Aplicacao_Interativa.Migrations
 {
     [DbContext(typeof(BancoContext))]
-    [Migration("20240312162958_CriacaoTabelaUsuarios")]
+    [Migration("20240313175700_CriacaoTabelaUsuarios")]
     partial class CriacaoTabelaUsuarios
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

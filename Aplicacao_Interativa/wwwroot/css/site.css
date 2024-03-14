@@ -19,5 +19,16 @@ body {
 
 .linkcadastro {
     text-decoration: none;
+    font-size: 18px;
+    transition-delay: 0.1s;
+}
+.linkcadastro:hover{
+    text-decoration: underline;
+    font-size: 20px;
+}
+
+.erro-mensagem {
+    color: red;
     font-size: 17px;
+    font-weight: bold;
 }

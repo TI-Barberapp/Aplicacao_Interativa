@@ -10,3 +10,17 @@ $(document).ready(function () {
 		});
 	}, 3000);
 });
+
+function validarFormulario() {
+    var senha = document.getElementById("NovaSenha").value;
+    var confirmarSenha = document.getElementById("ConfirmarSenha").value;
+    var erroSenha = document.getElementById("erroSenha");
+
+    if (senha !== confirmarSenha) {
+        erroSenha.textContent = "As senhas não coincidem.";
+        return false;
+    } else {
+        erroSenha.textContent = "";
+        return true;
+    }
+}

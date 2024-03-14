@@ -1,0 +1,32 @@
+﻿@model EsqueciSenhaModel
+@{
+    Layout = "_LayoutDeslogado";
+    ViewData["Title"] = "Esqueci Senha";
+}
+
+@if (TempData["MensagemSucesso"] != null)
+{
+        <div class="alert alert-success" role="alert">
+        @TempData["MensagemSucesso"]
+        </div>
+}
+
+@if (TempData["MensagemErro"] != null)
+{
+        <div class="alert alert-danger" role="alert">
+        @TempData["MensagemErro"]
+        </div>
+}
+
+<h1 class="text-center">Acesse o seu perfil</h1>
+<form asp-controller="Login" asp-action="EsqueciSenha" method="post">
+  <div class="mb-3">
+    <label for="email">E-mail</label>
+    <input type="email" asp-for="Email" required class="form-control" placeholder="Digite seu e-mail"/>   
+  </div>
+
+  <button type="submit" class="btn btn-primary btn-block w-100 my-1">Redefinir Senha</button>
+  <a class="btn btn-secondary btn-block w-100 my-1" role="button" asp-controller="Login" asp-action="Index">Voltar</a>
+
+</form>
+

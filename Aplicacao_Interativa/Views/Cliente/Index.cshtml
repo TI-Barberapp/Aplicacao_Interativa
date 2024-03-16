@@ -1,8 +1,22 @@
 ﻿@{
-    ViewData["Title"] = "Página Inicial";
+    ViewData["Title"] = "Realizar Agendamento";
+}
+@if (TempData["MensagemSucesso"] != null)
+{
+                        <div class="alert alert-success" role="alert">
+        @TempData["MensagemSucesso"]
+                        </div>  
+}
+
+@if (TempData["MensagemErro"] != null)
+{
+                                <div class="alert alert-danger" role="alert">
+        @TempData["MensagemErro"]
+                                </div>  
 }
 
 <div class="text-center">
     <h1 class="display-4">Bem Vindo!</h1>
-    <p>Conheça nosso site de reservas para barbearias.</p>
+    <p>Conheça nosso site de reservas para barbearias.</p> 
+    <a class="btn btn-primary" asp-controller="Cliente" asp-action="Agendar">Agendar</a>
 </div>

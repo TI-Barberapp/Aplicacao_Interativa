@@ -26,6 +26,8 @@ namespace Aplicacao_Interativa
 
             builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
+            builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
+            builder.Services.AddScoped<IAgendamentoRepositorio, AgendamentoRepositorio>();
             builder.Services.AddScoped<IEmail, Email>();
             builder.Services.AddScoped<ITokenCacheService, TokenCacheService>();
             builder.Services.AddScoped<ISessao, Sessao>();

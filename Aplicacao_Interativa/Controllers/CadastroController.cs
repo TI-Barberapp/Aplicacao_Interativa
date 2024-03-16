@@ -1,5 +1,6 @@
 ﻿using Aplicacao_Interativa.Data;
 using Aplicacao_Interativa.Filters;
+using Aplicacao_Interativa.Helper;
 using Aplicacao_Interativa.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,16 +10,20 @@ namespace Aplicacao_Interativa.Controllers
     public class CadastroController : Controller
     {
         private readonly BancoContext _context;
+        private readonly IUsuarioRepositorio _usuarioRepositorio;
 
-        public CadastroController(BancoContext context)
+        public CadastroController(BancoContext context, IUsuarioRepositorio usuarioRepositorio)
         {
             _context = context;
+            _usuarioRepositorio = usuarioRepositorio;
         }
 
         public IActionResult Index()
         {
-            return View();
-        }
+            List<UsuarioModel> usuarios = _usuarioRepositorio.BuscarTodos();
+            
+            return View(usuarios);
+        }        
 
         public IActionResult Criar()
         {
@@ -26,15 +31,14 @@ namespace Aplicacao_Interativa.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Criar(UsuarioModel usuario)
+        public IActionResult Criar(UsuarioModel usuario)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
                     usuario.SetGerarHash();
-                    _context.Add(usuario);
-                    await _context.SaveChangesAsync();
+                    _usuarioRepositorio.Adicionar(usuario);
                     TempData["MensagemSucesso"] = "O cadastro foi feito com sucesso";
                     return RedirectToAction("Index", "Login");
                 }
@@ -44,7 +48,7 @@ namespace Aplicacao_Interativa.Controllers
             catch (System.Exception erro)
             {
                 TempData["MensagemErro"] = $"Não foi possível realizar o cadastro. Detalhes: {erro.Message}";
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Login");
             }
         }
     }

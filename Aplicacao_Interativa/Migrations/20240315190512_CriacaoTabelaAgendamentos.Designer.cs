@@ -3,6 +3,7 @@ using System;
 using Aplicacao_Interativa.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Aplicacao_Interativa.Migrations
 {
     [DbContext(typeof(BancoContext))]
-    partial class BancoContextModelSnapshot : ModelSnapshot
+    [Migration("20240315190512_CriacaoTabelaAgendamentos")]
+    partial class CriacaoTabelaAgendamentos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,6 +31,10 @@ namespace Aplicacao_Interativa.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("Celular")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<DateTime>("DataAgendamento")
                         .HasColumnType("datetime(6)");
 
@@ -36,16 +42,15 @@ namespace Aplicacao_Interativa.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Servico")
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("usuarioID")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("usuarioID");
 
                     b.ToTable("Agendamentos");
                 });
@@ -78,22 +83,6 @@ namespace Aplicacao_Interativa.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Usuarios");
-                });
-
-            modelBuilder.Entity("Aplicacao_Interativa.Models.AgendamentoModel", b =>
-                {
-                    b.HasOne("Aplicacao_Interativa.Models.UsuarioModel", "Usuario")
-                        .WithMany("Agendamentos")
-                        .HasForeignKey("usuarioID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Usuario");
-                });
-
-            modelBuilder.Entity("Aplicacao_Interativa.Models.UsuarioModel", b =>
-                {
-                    b.Navigation("Agendamentos");
                 });
 #pragma warning restore 612, 618
         }

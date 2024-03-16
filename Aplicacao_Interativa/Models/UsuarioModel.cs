@@ -16,6 +16,8 @@ namespace Aplicacao_Interativa.Models
 
         public PerfilEnum Perfil { get; set; }
 
+        public virtual List<AgendamentoModel> Agendamentos { get; set; }
+
         public bool SenhaValida(string senha)
         {
             return Senha == senha.GerarHash();

@@ -7,5 +7,6 @@ namespace Aplicacao_Interativa.Helper
         void CriarSessaoUsuario(UsuarioModel usuario);
         void RemoverSessaoUsuario();
         UsuarioModel BuscarSessaoUsuario();
+        int? BuscarSessaoUsuarioId();
     }
 }

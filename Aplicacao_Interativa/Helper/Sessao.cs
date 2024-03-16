@@ -33,5 +33,16 @@ namespace Aplicacao_Interativa.Helper
         {
             _httpContext.HttpContext.Session.Remove("sessaoUsuarioLogado");
         }
+
+        public int? BuscarSessaoUsuarioId()
+        {
+            string sessaoUsuario = _httpContext.HttpContext.Session.GetString("sessaoUsuarioLogado");
+
+            if (string.IsNullOrEmpty(sessaoUsuario)) return null;
+
+            var usuario = JsonConvert.DeserializeObject<UsuarioModel>(sessaoUsuario);
+
+            return usuario.Id;
+        }
     }
 }

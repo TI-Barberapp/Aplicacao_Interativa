@@ -1,5 +1,6 @@
 ﻿using Aplicacao_Interativa.Data;
 using Aplicacao_Interativa.Models;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
 namespace Aplicacao_Interativa.Helper
@@ -18,6 +19,11 @@ namespace Aplicacao_Interativa.Helper
             _bancoContext.SaveChanges();
 
             return agendamento;
-        }        
+        }
+        public List<ServicoModel> BuscarServicos()
+        {
+            return _bancoContext.Servicos.ToList();
+        }
+
     }
 }

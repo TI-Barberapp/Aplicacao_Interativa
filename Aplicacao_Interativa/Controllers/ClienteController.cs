@@ -4,6 +4,7 @@ using Aplicacao_Interativa.Helper;
 using Aplicacao_Interativa.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace Aplicacao_Interativa.Controllers
@@ -24,14 +25,18 @@ namespace Aplicacao_Interativa.Controllers
         }
 
         public IActionResult Index()
-        {
-           return View();
+        {           
+            return View();
         }
+
 
         public IActionResult Agendar()
         {
             List<UsuarioModel> barbeiros = _usuarioRepositorio.BuscarBarbeiros();
             ViewBag.Barbeiros = new SelectList(barbeiros, "Id", "Nome");
+
+            List<ServicoModel> servicos = _agendamentoRepositorio.BuscarServicos();
+            ViewBag.Servicos = servicos;
 
             return View();
         }
@@ -54,19 +59,11 @@ namespace Aplicacao_Interativa.Controllers
                         return RedirectToAction("Index", "Cliente");
                     }                    
                 }
-                foreach (var modelStateEntry in ModelState.Values)
-                {
-                    foreach (var error in modelStateEntry.Errors)
-                    {
-                        // Concatene os erros de validação do ModelState em uma única string
-                        TempData["MensagemErro"] += error.ErrorMessage + " ";
-                    }
-                }
 
-                // Redirecionar de volta para a view para corrigir os erros
+                TempData["MensagemErro"] = $"Não foi possível realizar o agendamento.";
                 return RedirectToAction("Index", "Cliente");
             }
-            catch (System.Exception erro)
+            catch (Exception erro)
             {
                 TempData["MensagemErro"] = $"Não foi possível realizar o agendamento. Detalhes: {erro.Message}";
                 return RedirectToAction("Index", "Cliente");

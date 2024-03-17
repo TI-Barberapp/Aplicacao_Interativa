@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Aplicacao_Interativa.Migrations
 {
     [DbContext(typeof(BancoContext))]
-    [Migration("20240315190512_CriacaoTabelaAgendamentos")]
-    partial class CriacaoTabelaAgendamentos
+    [Migration("20240317003121_CriacaoTabelaServico")]
+    partial class CriacaoTabelaServico
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,10 +31,6 @@ namespace Aplicacao_Interativa.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Celular")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
                     b.Property<DateTime>("DataAgendamento")
                         .HasColumnType("datetime(6)");
 
@@ -42,17 +38,62 @@ namespace Aplicacao_Interativa.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
                     b.Property<string>("Servico")
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<int>("usuarioID")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("usuarioID");
+
                     b.ToTable("Agendamentos");
+                });
+
+            modelBuilder.Entity("Aplicacao_Interativa.Models.ServicoModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<decimal>("Preco")
+                        .HasColumnType("decimal(10,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Servicos");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Nome = "Corte",
+                            Preco = 25m
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Nome = "Barba",
+                            Preco = 15m
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Nome = "Sobrancelha",
+                            Preco = 5m
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Nome = "Corte + Sobrancelha",
+                            Preco = 30m
+                        });
                 });
 
             modelBuilder.Entity("Aplicacao_Interativa.Models.UsuarioModel", b =>
@@ -83,6 +124,22 @@ namespace Aplicacao_Interativa.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Usuarios");
+                });
+
+            modelBuilder.Entity("Aplicacao_Interativa.Models.AgendamentoModel", b =>
+                {
+                    b.HasOne("Aplicacao_Interativa.Models.UsuarioModel", "Usuario")
+                        .WithMany("Agendamentos")
+                        .HasForeignKey("usuarioID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("Aplicacao_Interativa.Models.UsuarioModel", b =>
+                {
+                    b.Navigation("Agendamentos");
                 });
 #pragma warning restore 612, 618
         }

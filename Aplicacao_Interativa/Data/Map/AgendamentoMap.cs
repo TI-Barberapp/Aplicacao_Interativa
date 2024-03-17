@@ -10,6 +10,8 @@ namespace Aplicacao_Interativa.Data.Map
         {
             builder.HasKey(x => x.Id);
             builder.HasOne(x => x.Usuario);
+            builder.HasOne(x => x.Servico)
+                   .WithMany();
         }
     }
 }

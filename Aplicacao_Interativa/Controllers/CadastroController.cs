@@ -9,12 +9,10 @@ namespace Aplicacao_Interativa.Controllers
 {
     public class CadastroController : Controller
     {
-        private readonly BancoContext _context;
         private readonly IUsuarioRepositorio _usuarioRepositorio;
 
-        public CadastroController(BancoContext context, IUsuarioRepositorio usuarioRepositorio)
+        public CadastroController(IUsuarioRepositorio usuarioRepositorio)
         {
-            _context = context;
             _usuarioRepositorio = usuarioRepositorio;
         }
 
@@ -43,9 +41,10 @@ namespace Aplicacao_Interativa.Controllers
                     return RedirectToAction("Index", "Login");
                 }
 
-                return View("Index", "Login");
+                TempData["MensagemErro"] = "O cadastro não pôde ser realizado devido a erros no formulário.";
+                return RedirectToAction("Index", "Login");
             }
-            catch (System.Exception erro)
+            catch (Exception erro)
             {
                 TempData["MensagemErro"] = $"Não foi possível realizar o cadastro. Detalhes: {erro.Message}";
                 return RedirectToAction("Index", "Login");

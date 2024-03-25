@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aplicacao_Interativa", "Aplicacao_Interativa\Aplicacao_Interativa.csproj", "{21859AD5-EA00-4BB2-8E36-5FF6ABE4804B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aplicacao_Interativa", "Aplicacao_Interativa\Aplicacao_Interativa.csproj", "{21859AD5-EA00-4BB2-8E36-5FF6ABE4804B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppInterativa.Testes", "AppInterativa.Testes\AppInterativa.Testes.csproj", "{F616AF85-AAF3-47BA-B187-5D560216189E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{21859AD5-EA00-4BB2-8E36-5FF6ABE4804B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21859AD5-EA00-4BB2-8E36-5FF6ABE4804B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{21859AD5-EA00-4BB2-8E36-5FF6ABE4804B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F616AF85-AAF3-47BA-B187-5D560216189E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F616AF85-AAF3-47BA-B187-5D560216189E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F616AF85-AAF3-47BA-B187-5D560216189E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F616AF85-AAF3-47BA-B187-5D560216189E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

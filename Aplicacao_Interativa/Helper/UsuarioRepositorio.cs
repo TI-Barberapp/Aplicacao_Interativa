@@ -1,6 +1,7 @@
 ﻿using Aplicacao_Interativa.Data;
 using Aplicacao_Interativa.Enums;
 using Aplicacao_Interativa.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Aplicacao_Interativa.Helper
 {
@@ -26,6 +27,11 @@ namespace Aplicacao_Interativa.Helper
         public List<UsuarioModel> BuscarBarbeiros()
         {
             return _bancoContext.Usuarios.Where(u => u.Perfil == PerfilEnum.Barbeiro).ToList();
+        }
+
+        public UsuarioModel BuscarPorLogin(string email)
+        {
+            return _bancoContext.Usuarios.FirstOrDefault(x => x.Email.ToUpper() == email.ToUpper());
         }
     }
 }

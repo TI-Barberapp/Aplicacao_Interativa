@@ -35,10 +35,16 @@ namespace Aplicacao_Interativa.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    usuario.SetGerarHash();
-                    _usuarioRepositorio.Adicionar(usuario);
-                    TempData["MensagemSucesso"] = "O cadastro foi feito com sucesso";
-                    return RedirectToAction("Index", "Login");
+                    UsuarioModel email = _usuarioRepositorio.BuscarPorLogin(usuario.Email);
+                    if (email == null)
+                    {
+                        usuario.SetGerarHash();
+                        _usuarioRepositorio.Adicionar(usuario);
+                        TempData["MensagemSucesso"] = "O cadastro foi feito com sucesso";
+                        return RedirectToAction("Index", "Login");
+                    }
+                    TempData["MensagemErro"] = "Esse e-mail já está sendo utilizado.";
+                    return RedirectToAction("Criar", "Cadastro");
                 }
 
                 TempData["MensagemErro"] = "O cadastro não pôde ser realizado devido a erros no formulário.";

@@ -12,6 +12,8 @@ namespace Aplicacao_Interativa.Data.Map
             builder.HasOne(x => x.Usuario);
             builder.HasOne(x => x.Servico)
                    .WithMany();
+            builder.HasOne(x => x.Horario)
+                   .WithMany();
         }
     }
 }

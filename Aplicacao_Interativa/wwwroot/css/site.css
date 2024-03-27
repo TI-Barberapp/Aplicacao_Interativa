@@ -17,6 +17,7 @@ body {
   margin-bottom: 60px;
 }
 
+/*Login/Index.cshtml*/
 .linkcadastro {
     text-decoration: none;
     font-size: 18px;
@@ -27,9 +28,42 @@ body {
     font-size: 20px;
 }
 
+/*RedefinirSenha.cshtml*/
 .erro-mensagem {
     color: red;
     font-size: 17px;
     font-weight: bold;
     border: none;
 }
+
+/*Agendar.cshtml*/
+.selected {
+    background-color: #007bff;
+    color: #fff;
+    outline: none;
+}
+#calendario {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.btn-dia {
+    width: 72px;
+    height: 90px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-dia:hover {
+   background-color: #f8f9fa;
+   color: #0d6efd;
+}
+

@@ -35,13 +35,27 @@ namespace Aplicacao_Interativa.Controllers
 
         public IActionResult Agendar()
         {
+            var agendamento = new AgendamentoModel();
+
             List<UsuarioModel> barbeiros = _usuarioRepositorio.BuscarBarbeiros();
             ViewBag.Barbeiros = new SelectList(barbeiros, "Id", "Nome");
 
             List<ServicoModel> servicos = _agendamentoRepositorio.BuscarServicos();
             ViewBag.Servicos = servicos;
 
-            return View();
+            List<HorarioModel> horarios = _agendamentoRepositorio.BuscarHorarios();
+            ViewBag.Horarios = horarios;
+
+            return View(agendamento);
+        }
+
+        [HttpGet]
+        public IActionResult BuscarHorariosDisponiveis(string data)
+        {
+            DateTime dataSelecionada = DateTime.Parse(data);
+            var horariosDisponiveis = _agendamentoRepositorio.BuscarHorariosDisponiveis(dataSelecionada);
+            // Certifique-se de que a lista horariosDisponiveis contenha os IDs dos horários corretamente
+            return Json(horariosDisponiveis);
         }
 
         [HttpPost]
@@ -52,24 +66,29 @@ namespace Aplicacao_Interativa.Controllers
                 if (ModelState.IsValid)
                 {
                     var usuarioId = _sessao.BuscarSessaoUsuarioId();
-
-                    var usuarioLogado = _sessao.BuscarSessaoUsuario();
+                    var usuarioLogado = _sessao.BuscarSessaoUsuario();                    
 
                     if (usuarioId != null)
                     {
-                        agendamento.usuarioID = usuarioId.Value;
-                        agendamento = _agendamentoRepositorio.Adicionar(agendamento);
+                        var agendamentoExistente = _agendamentoRepositorio.BuscarPorData(agendamento.DataAgendamento, agendamento.HorarioId);
 
-                        var mensagem = new StringBuilder();
-                        mensagem.Append($"<p>Olá {usuarioLogado.Nome}.</p>");
-                        mensagem.Append("<p> Seu agendemento ja foi marcado,obrigado pela preferência e te aguardamos em breve!</p>");
+                        if (agendamentoExistente == null)
+                        {
+                            agendamento.usuarioID = usuarioId.Value;
+                            agendamento = _agendamentoRepositorio.Adicionar(agendamento);
 
-                        TempData["MensagemSucesso"] = "O agendamento foi feito com sucesso";
-                        _email.Enviar(usuarioLogado.Email, "Confirmação de Agendamento", mensagem.ToString());
-                        return RedirectToAction("Index", "Cliente");
+                            var mensagem = new StringBuilder();
+                            mensagem.Append($"<p>Olá {usuarioLogado.Nome}.</p>");
+                            mensagem.Append("<p> Seu agendemento ja foi marcado,obrigado pela preferência e te aguardamos em breve!</p>");
+
+                            TempData["MensagemSucesso"] = "O agendamento foi feito com sucesso";
+                            //_email.Enviar(usuarioLogado.Email, "Confirmação de Agendamento", mensagem.ToString());
+                            return RedirectToAction("Index", "Cliente");
+                        }
+                        TempData["MensagemErro"] = $"O horário escolhido já possui agendamento.";
+                        return RedirectToAction("Agendar", "Cliente");
                     }
                 }
-
                 TempData["MensagemErro"] = $"Não foi possível realizar o agendamento.";
                 return RedirectToAction("Index", "Cliente");
             }

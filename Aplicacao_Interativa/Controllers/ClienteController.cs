@@ -48,16 +48,6 @@ namespace Aplicacao_Interativa.Controllers
 
             return View(agendamento);
         }
-
-        [HttpGet]
-        public IActionResult BuscarHorariosDisponiveis(string data)
-        {
-            DateTime dataSelecionada = DateTime.Parse(data);
-            var horariosDisponiveis = _agendamentoRepositorio.BuscarHorariosDisponiveis(dataSelecionada);
-            // Certifique-se de que a lista horariosDisponiveis contenha os IDs dos horários corretamente
-            return Json(horariosDisponiveis);
-        }
-
         [HttpPost]
         public IActionResult Agendar(AgendamentoModel agendamento)
         {
@@ -82,7 +72,7 @@ namespace Aplicacao_Interativa.Controllers
                             mensagem.Append("<p> Seu agendemento ja foi marcado,obrigado pela preferência e te aguardamos em breve!</p>");
 
                             TempData["MensagemSucesso"] = "O agendamento foi feito com sucesso";
-                            //_email.Enviar(usuarioLogado.Email, "Confirmação de Agendamento", mensagem.ToString());
+                            _email.Enviar(usuarioLogado.Email, "Confirmação de Agendamento", mensagem.ToString());
                             return RedirectToAction("Index", "Cliente");
                         }
                         TempData["MensagemErro"] = $"O horário escolhido já possui agendamento.";

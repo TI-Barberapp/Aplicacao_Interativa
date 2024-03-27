@@ -8,6 +8,8 @@ namespace Aplicacao_Interativa.Helper
 
         List<UsuarioModel> BuscarTodos();
         List<UsuarioModel> BuscarBarbeiros();
+
+        UsuarioModel BuscarPorLogin(string email);
     }
 
 }

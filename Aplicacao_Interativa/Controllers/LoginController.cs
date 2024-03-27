@@ -15,18 +15,15 @@ namespace Aplicacao_Interativa.Controllers
         private readonly ISessao _sessao;
         private readonly IEmail _email;
         private readonly ITokenCacheService _tokenCacheService;
+        private readonly IUsuarioRepositorio _usuarioRepositorio;
 
-        public LoginController(BancoContext context, ISessao sessao, IEmail email, ITokenCacheService tokenCacheService)
+        public LoginController(BancoContext context, ISessao sessao, IEmail email, ITokenCacheService tokenCacheService, IUsuarioRepositorio usuarioRepositorio)
         {
             _context = context;
             _sessao = sessao;
             _email = email;
             _tokenCacheService = tokenCacheService;
-        }
-
-        UsuarioModel BuscarPorLogin(string email)
-        {
-            return _context.Usuarios.FirstOrDefault(x => x.Email.ToUpper() == email.ToUpper());
+            _usuarioRepositorio = usuarioRepositorio;
         }
 
         public IActionResult Index()
@@ -63,7 +60,7 @@ namespace Aplicacao_Interativa.Controllers
             {               
                 if (ModelState.IsValid)
                 {
-                    UsuarioModel usuario = BuscarPorLogin(loginModel.Email);
+                    UsuarioModel usuario = _usuarioRepositorio.BuscarPorLogin(loginModel.Email);
 
                     if (usuario != null)
                     {
@@ -107,7 +104,7 @@ namespace Aplicacao_Interativa.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    UsuarioModel usuario = BuscarPorLogin(redefinirSenhaModel.Email);
+                    UsuarioModel usuario = _usuarioRepositorio.BuscarPorLogin(redefinirSenhaModel.Email);
 
                     if (usuario != null)
                     {
@@ -155,7 +152,7 @@ namespace Aplicacao_Interativa.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    UsuarioModel usuario = BuscarPorLogin(redefinirSenhaModel.Email);
+                    UsuarioModel usuario = _usuarioRepositorio.BuscarPorLogin(redefinirSenhaModel.Email);
 
                     if (usuario != null)
                     {

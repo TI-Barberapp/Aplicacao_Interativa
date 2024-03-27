@@ -3,6 +3,7 @@ using System;
 using Aplicacao_Interativa.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Aplicacao_Interativa.Migrations
 {
     [DbContext(typeof(BancoContext))]
-    partial class BancoContextModelSnapshot : ModelSnapshot
+    [Migration("20240327174607_CriacaoTabelaHorarios")]
+    partial class CriacaoTabelaHorarios
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,8 +34,9 @@ namespace Aplicacao_Interativa.Migrations
                     b.Property<DateTime>("DataAgendamento")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("HorarioId")
-                        .HasColumnType("int");
+                    b.Property<string>("Horario")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<int>("ServicoId")
                         .HasColumnType("int");
@@ -42,8 +45,6 @@ namespace Aplicacao_Interativa.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("HorarioId");
 
                     b.HasIndex("ServicoId");
 
@@ -200,12 +201,6 @@ namespace Aplicacao_Interativa.Migrations
 
             modelBuilder.Entity("Aplicacao_Interativa.Models.AgendamentoModel", b =>
                 {
-                    b.HasOne("Aplicacao_Interativa.Models.HorarioModel", "Horario")
-                        .WithMany()
-                        .HasForeignKey("HorarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Aplicacao_Interativa.Models.ServicoModel", "Servico")
                         .WithMany()
                         .HasForeignKey("ServicoId")
@@ -217,8 +212,6 @@ namespace Aplicacao_Interativa.Migrations
                         .HasForeignKey("usuarioID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Horario");
 
                     b.Navigation("Servico");
 

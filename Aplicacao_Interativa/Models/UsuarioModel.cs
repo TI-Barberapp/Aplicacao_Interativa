@@ -18,16 +18,8 @@ namespace Aplicacao_Interativa.Models
         [Required]
         public PerfilEnum Perfil { get; set; }
 
-        public virtual List<AgendamentoModel> Agendamentos { get; set; }
+        public virtual List<AgendamentoModel> Agendamentos { get; set; } = new List<AgendamentoModel>();
 
-        public UsuarioModel()
-        {
-            Nome = string.Empty;
-            Email = string.Empty;
-            Celular = string.Empty;
-            Senha = string.Empty;
-            Agendamentos = new List<AgendamentoModel>();
-        }
 
         public bool SenhaValida(string senha)
         {

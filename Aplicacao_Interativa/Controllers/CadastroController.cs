@@ -47,13 +47,12 @@ namespace Aplicacao_Interativa.Controllers
                     return RedirectToAction("Criar", "Cadastro");
                 }
 
-                TempData["MensagemErro"] = "O cadastro não pôde ser realizado devido a erros no formulário.";
-                return RedirectToAction("Index", "Login");
+                return RedirectToAction("Criar", "Cadastro");
             }
             catch (Exception erro)
             {
                 TempData["MensagemErro"] = $"Não foi possível realizar o cadastro. Detalhes: {erro.Message}";
-                return RedirectToAction("Index", "Login");
+                return RedirectToAction("Criar", "Cadastro");
             }
         }
     }

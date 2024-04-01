@@ -12,34 +12,91 @@ namespace AppInterativa.Testes.Controllers
     public class CadastroControllerTests
     {
         [Fact]
-        public void Criar_Should_Return_RedirectToAction_When_Model_Is_Valid()
+        public void TestarCriar_QuandoUsuarioForValido()
         {
             // Arrange
-            var mockUsuarioRepositorio = new Mock<IUsuarioRepositorio>();
-            var mockTempData = new Mock<ITempDataDictionary>();
-            var controller = new CadastroController(mockUsuarioRepositorio.Object)
+            var usuarioRepositorioMock = new Mock<IUsuarioRepositorio>();
+            var tempDataMock = new Mock<ITempDataDictionary>();
+            var controller = new CadastroController(usuarioRepositorioMock.Object)
             {
-                TempData = mockTempData.Object
+                TempData = tempDataMock.Object
             };
 
-            var usuario = new UsuarioModel
+            var novoUsuario = new UsuarioModel
             {
-                Id = 1,
-                Nome = "David",
-                Email = "david@gmail.com",
-                Celular = "31 994706649",
-                Senha = "1234",
-                Perfil = PerfilEnum.Barbeiro
+                Nome = "Teste",
+                Email = "teste@teste.com",
+                Celular = "123456789",
+                Senha = "teste123",
+                Perfil = PerfilEnum.Cliente
             };
 
-            controller.ModelState.AddModelError("FakeError", "This is a fake error message.");
             // Act
-            var result = controller.Criar(usuario) as RedirectToActionResult;
+            var resultado = controller.Criar(novoUsuario) as RedirectToActionResult;
 
             // Assert
-            Assert.NotNull(result);
-            Assert.Equal("Index", result.ActionName);
-            Assert.Equal("Login", result.ControllerName);
+            Assert.NotNull(resultado);
+            Assert.Equal("Index", resultado.ActionName);
+            Assert.Equal("Login", resultado.ControllerName);
+            tempDataMock.VerifySet(tempData => tempData["MensagemSucesso"] = "O cadastro foi feito com sucesso", Times.Once);
+            usuarioRepositorioMock.Verify(repo => repo.Adicionar(novoUsuario), Times.Once);
+        }
+
+        [Fact]
+        public void TestarCriar_QuandoUsuarioForInvalido()
+        {
+            // Arrange
+            var usuarioRepositorioMock = new Mock<IUsuarioRepositorio>();
+            var tempDataMock = new Mock<ITempDataDictionary>();
+            var controller = new CadastroController(usuarioRepositorioMock.Object)
+            {
+                TempData = tempDataMock.Object
+            };
+
+            var usuarioInvalido = new UsuarioModel();
+
+            // Act
+            var resultado = controller.Criar(usuarioInvalido) as RedirectToActionResult;
+
+            // Assert
+            Assert.NotNull(resultado);
+            Assert.Equal("Criar", resultado.ActionName);
+            Assert.Equal("Cadastro", resultado.ControllerName);
+            usuarioRepositorioMock.Verify(repo => repo.Adicionar(It.IsAny<UsuarioModel>()), Times.Never);
+        }
+
+        [Fact]
+        public void TestarCriar_QuandoEmailDuplicado()
+        {
+            // Arrange
+            var usuarioRepositorioMock = new Mock<IUsuarioRepositorio>();
+            var tempDataMock = new Mock<ITempDataDictionary>();
+            var controller = new CadastroController(usuarioRepositorioMock.Object)
+            {
+                TempData = tempDataMock.Object
+            };
+
+            var novoUsuario = new UsuarioModel
+            {
+                Nome = "Teste",
+                Email = "teste@teste.com",
+                Celular = "123456789",
+                Senha = "teste123",
+                Perfil = PerfilEnum.Cliente
+            };
+
+            usuarioRepositorioMock.Setup(repo => repo.BuscarPorLogin(novoUsuario.Email))
+                                  .Returns(new UsuarioModel());
+
+            // Act
+            var resultado = controller.Criar(novoUsuario) as RedirectToActionResult;
+
+            // Assert
+            Assert.NotNull(resultado);
+            Assert.Equal("Criar", resultado.ActionName);
+            Assert.Equal("Cadastro", resultado.ControllerName);
+            tempDataMock.VerifySet(tempData => tempData["MensagemErro"] = "Esse e-mail já está sendo utilizado.", Times.Once);
+            usuarioRepositorioMock.Verify(repo => repo.Adicionar(It.IsAny<UsuarioModel>()), Times.Never);
         }
     }
 }

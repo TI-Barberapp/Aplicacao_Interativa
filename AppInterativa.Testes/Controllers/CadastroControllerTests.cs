@@ -38,7 +38,7 @@ namespace AppInterativa.Testes.Controllers
             Assert.NotNull(resultado);
             Assert.Equal("Index", resultado.ActionName);
             Assert.Equal("Login", resultado.ControllerName);
-            tempDataMock.VerifySet(tempData => tempData["MensagemSucesso"] = "O cadastro foi feito com sucesso", Times.Once);
+            tempDataMock.VerifySet(tempData => tempData["MensagemSucesso"] = "O cadastro foi feito com sucesso.", Times.Once);
             usuarioRepositorioMock.Verify(repo => repo.Adicionar(novoUsuario), Times.Once);
         }
 
@@ -66,7 +66,7 @@ namespace AppInterativa.Testes.Controllers
         }
 
         [Fact]
-        public void TestarCriar_QuandoEmailDuplicado()
+        public void TestarCriar_QuandoEmailForDuplicado()
         {
             // Arrange
             var usuarioRepositorioMock = new Mock<IUsuarioRepositorio>();

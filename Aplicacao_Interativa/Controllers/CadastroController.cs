@@ -40,7 +40,7 @@ namespace Aplicacao_Interativa.Controllers
                     {
                         usuario.SetGerarHash();
                         _usuarioRepositorio.Adicionar(usuario);
-                        TempData["MensagemSucesso"] = "O cadastro foi feito com sucesso";
+                        TempData["MensagemSucesso"] = "O cadastro foi feito com sucesso.";
                         return RedirectToAction("Index", "Login");
                     }
                     TempData["MensagemErro"] = "Esse e-mail já está sendo utilizado.";

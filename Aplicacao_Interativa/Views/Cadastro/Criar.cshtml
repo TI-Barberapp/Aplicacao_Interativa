@@ -26,17 +26,13 @@
     <label for="celualr">Celular</label>
     <input type="text" asp-for="Celular" required class="form-control" placeholder="Digite seu celular"/>
   </div>
-  <div class="mb-3">
-    <label for="perfil">Perfil</label>
-    <select class="form-select" asp-for="Perfil">
-        <option value="@PerfilEnum.Barbeiro">Barbeiro</option>
-        <option value="@PerfilEnum.Cliente">Cliente</option>
-    </select>
-  </div>
+
   <div class="mb-3">
     <label for="senha">Senha</label>
      <input type="password" asp-for="Senha" required class="form-control" placeholder="Digite sua senha"/>
   </div>
+
+  <input type="hidden" asp-for="Perfil" value="@PerfilEnum.Cliente" />
 
   <button type="submit" class="btn btn-primary btn-block w-100 my-1">Adicionar</button>
   <a class="btn btn-secondary btn-block w-100 my-1" role="button" asp-controller="Login" asp-action="Index">Voltar</a>

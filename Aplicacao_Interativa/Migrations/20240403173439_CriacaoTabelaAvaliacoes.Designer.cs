@@ -3,6 +3,7 @@ using System;
 using Aplicacao_Interativa.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Aplicacao_Interativa.Migrations
 {
     [DbContext(typeof(BancoContext))]
-    partial class BancoContextModelSnapshot : ModelSnapshot
+    [Migration("20240403173439_CriacaoTabelaAvaliacoes")]
+    partial class CriacaoTabelaAvaliacoes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,16 +60,11 @@ namespace Aplicacao_Interativa.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("AgendamentoId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Avaliacao")
                         .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AgendamentoId");
 
                     b.ToTable("Avalicoes");
                 });
@@ -243,17 +240,6 @@ namespace Aplicacao_Interativa.Migrations
                     b.Navigation("Servico");
 
                     b.Navigation("Usuario");
-                });
-
-            modelBuilder.Entity("Aplicacao_Interativa.Models.AvaliacaoModel", b =>
-                {
-                    b.HasOne("Aplicacao_Interativa.Models.AgendamentoModel", "Agendamento")
-                        .WithMany()
-                        .HasForeignKey("AgendamentoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Agendamento");
                 });
 
             modelBuilder.Entity("Aplicacao_Interativa.Models.UsuarioModel", b =>

@@ -1,13 +1,13 @@
-﻿@{
+﻿@model AvaliacaoModel
+@{
     ViewData["Title"] = "Realizar Agendamento";
 }
 @if (TempData["MensagemSucesso"] != null)
 {
-                        <div class="alert alert-success" role="alert">
+                                <div class="alert alert-success" role="alert">
         @TempData["MensagemSucesso"]
-                        </div>  
+                                </div>  
 }
-
 @if (TempData["MensagemErro"] != null)
 {
                                 <div class="alert alert-danger" role="alert">
@@ -20,3 +20,16 @@
     <p>Conheça nosso site de reservas para barbearias.</p> 
     <a class="btn btn-primary" asp-controller="Cliente" asp-action="Agendar">Agendar</a>
 </div>
+<h1>Avaliações</h1>
+@foreach (AvaliacaoModel avaliacao in ViewBag.Avaliacoes)
+{
+    <div class="card mt-3">
+        <div class="card-body">
+            <h6 class="card-title">Serviço realizado por @avaliacao.Agendamento?.Barbeiro</h6>
+            <p class="card-text">@avaliacao.Avaliacao</p>
+            <p class="card-text text-end">Cliente: @avaliacao.Agendamento?.Usuario?.Nome</p>
+        </div>
+    </div>       
+}
+    
+

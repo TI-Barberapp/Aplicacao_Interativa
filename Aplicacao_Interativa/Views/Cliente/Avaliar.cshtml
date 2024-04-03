@@ -1,0 +1,32 @@
+﻿@model AvaliacaoModel
+@{
+    ViewData["Title"] = "Avaliação";
+}
+@if (TempData["MensagemSucesso"] != null)
+{
+                            <div class="alert alert-success" role="alert">
+        @TempData["MensagemSucesso"]
+                            </div>  
+}
+@if (TempData["MensagemErro"] != null)
+{
+                                        <div class="alert alert-danger" role="alert">
+        @TempData["MensagemErro"]
+                                        </div>  
+}
+
+<h1 class="text-center">Realizar Avalição do Serviço</h1>
+<form asp-controller="Cliente" asp-action="Avaliar" method="post">
+    <input type="hidden" asp-for="AgendamentoId"/>
+    <div class="card">
+        <div class="card-body">            
+            <div class="form-group">
+                <label>Avaliação do Serviço</label>
+                <input type="textarea" asp-for="Avaliacao" required class="form-control" placeholder="Digite sua avaliação sobre o serviço prestado"/> 
+            </div>
+            <div class="text-center">
+                <button id="btnEnviar" class="btn btn-primary mt-3 w-100">Enviar</button>
+            </div>
+        </div>
+    </div>
+</form>

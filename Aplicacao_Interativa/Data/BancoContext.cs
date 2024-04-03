@@ -14,6 +14,7 @@ namespace Aplicacao_Interativa.Data
         public DbSet<AgendamentoModel> Agendamentos { get; set; }
         public DbSet<ServicoModel> Servicos { get; set; }
         public DbSet<HorarioModel> Horarios { get; set; }
+        public DbSet<AvaliacaoModel> Avalicoes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

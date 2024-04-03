@@ -33,6 +33,10 @@ namespace Aplicacao_Interativa.Controllers
         {
             List<AvaliacaoModel> avaliacoes = _avalicaoRepositorio.BuscarAvaliacoesComRelacionamentos();
             ViewBag.Avaliacoes = avaliacoes;
+
+            List<ServicoModel> servicos = _agendamentoRepositorio.BuscarServicos();
+            ViewBag.Servicos = servicos;
+
             return View();
         }
 
@@ -43,18 +47,17 @@ namespace Aplicacao_Interativa.Controllers
             return View();
         }
 
-        public IActionResult Agendar()
+        public IActionResult Agendar(int servicoId)
         {
             var agendamento = new AgendamentoModel();
 
             List<UsuarioModel> barbeiros = _usuarioRepositorio.BuscarBarbeiros();
-            ViewBag.Barbeiros = new SelectList(barbeiros, "Id", "Nome");
-
-            List<ServicoModel> servicos = _agendamentoRepositorio.BuscarServicos();
-            ViewBag.Servicos = servicos;
+            ViewBag.Barbeiros = new SelectList(barbeiros, "Id", "Nome");            
 
             List<HorarioModel> horarios = _agendamentoRepositorio.BuscarHorarios();
             ViewBag.Horarios = horarios;
+
+            ViewBag.ServicoId = servicoId;
 
             return View(agendamento);
         }

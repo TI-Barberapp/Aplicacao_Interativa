@@ -1,4 +1,4 @@
-﻿@model AvaliacaoModel
+﻿@model ServicoModel
 @{
     ViewData["Title"] = "Realizar Agendamento";
 }
@@ -18,8 +18,26 @@
 <div class="text-center">
     <h1 class="display-4">Bem Vindo!</h1>
     <p>Conheça nosso site de reservas para barbearias.</p> 
-    <a class="btn btn-primary" asp-controller="Cliente" asp-action="Agendar">Agendar</a>
 </div>
+
+<h1>Serviços</h1>
+<div class="row">
+    @foreach (var servico in ViewBag.Servicos)
+    {
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">@servico.Nome</h5>
+                        <p class="card-text">Preço: R$ @servico.Preco</p>
+                        <a href="@Url.Action("Agendar", "Cliente", new { servicoId = servico.Id })" class="btn btn-primary">Agendar</a>
+                    </div>
+                </div>
+            </div>
+        </div>      
+    }
+</div>
+
 <h1>Avaliações</h1>
 @foreach (AvaliacaoModel avaliacao in ViewBag.Avaliacoes)
 {

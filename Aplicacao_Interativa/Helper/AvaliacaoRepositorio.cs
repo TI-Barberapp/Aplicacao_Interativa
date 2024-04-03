@@ -12,16 +12,6 @@ namespace Aplicacao_Interativa.Helper
             _bancoContext = bancoContext;
         }
 
-        public List<AvaliacaoModel> BuscarAvaliações()
-        {
-            var avaliacoes = _bancoContext.Avalicoes
-            .Include("Agendamento.Usuario")
-            .Include("Agendamento.Barbeiro")
-            .ToList();
-
-            return avaliacoes;
-        }
-
         public AvaliacaoModel Avaliar(AvaliacaoModel avaliacao)
         {
             _bancoContext.Avalicoes.Add(avaliacao);

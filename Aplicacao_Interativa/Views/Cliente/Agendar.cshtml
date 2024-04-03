@@ -11,6 +11,7 @@
 
 <h1 class="text-center">Realizar Novo Atendimento</h1>
 <form asp-controller="Cliente" asp-action="Agendar" method="post">
+    <input type="hidden" asp-for="ServicoId" value="@ViewBag.ServicoId" />
     <div class="card">
         <div class="card-body">            
             <div class="form-group">
@@ -37,15 +38,6 @@
                         }
                 </select>
             </div>          
-            <div class="mt-3">
-                <label for="servicoId">Serviço</label>
-                <select asp-for="ServicoId" class="form-select">
-                    @foreach (var servico in ViewBag.Servicos)
-                    {
-                        <option value="@servico.Id">@servico.Nome</option>
-                    }
-                </select>
-            </div>
             <div class="text-center">
                 <button id="btnEnviar" class="btn btn-primary mt-3 w-100">Enviar</button>
                 <a class="btn btn-secondary btn-block w-100 my-1" role="button" asp-controller="Cliente" asp-action="Index">Voltar</a>

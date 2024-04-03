@@ -5,7 +5,6 @@ namespace Aplicacao_Interativa.Helper
     public interface IAvalicaoRepositorio
     {
         AvaliacaoModel Avaliar(AvaliacaoModel avaliacao);
-        List<AvaliacaoModel> BuscarAvaliações();
         List<AvaliacaoModel> BuscarAvaliacoesComRelacionamentos();
     }
 }

@@ -66,3 +66,22 @@ document.addEventListener('DOMContentLoaded', function () {
         calendario.appendChild(botaoDia);
     }
 });
+
+// Avaliação em estrelas
+document.addEventListener('DOMContentLoaded', function () {
+    const stars = document.querySelectorAll('.avaliacao .star-icon');
+
+    stars.forEach(star => {
+        star.addEventListener('click', function () {
+            const value = this.getAttribute('data-avaliacao');
+            document.getElementById('avaliacaoEstrelas').value = value;
+
+            stars.forEach(s => {
+                s.classList.remove('ativo');
+            });
+
+            this.classList.add('ativo');
+        });
+    });
+});
+    

@@ -19,10 +19,21 @@
 <form asp-controller="Cliente" asp-action="Avaliar" method="post">
     <input type="hidden" asp-for="AgendamentoId"/>
     <div class="card">
-        <div class="card-body">            
+        <div class="card-body">   
+            <div class="form-group text-center">
+                <label><h6>Faça sua avaliação</h6></label>
+                <ul class="avaliacao justify-content-center">
+                  <li class="star-icon ativo" data-avaliacao="1"></li>
+                  <li class="star-icon" data-avaliacao="2"></li>
+                  <li class="star-icon" data-avaliacao="3"></li>
+                  <li class="star-icon" data-avaliacao="4"></li>
+                  <li class="star-icon" data-avaliacao="5"></li>
+                </ul>
+                <input type="hidden" id="avaliacaoEstrelas" name="Avaliacao" value="1" />
+            </div>
             <div class="form-group">
-                <label>Avaliação do Serviço</label>
-                <input type="textarea" asp-for="Avaliacao" required class="form-control" placeholder="Digite sua avaliação sobre o serviço prestado"/> 
+                <label><h6>Comentário sobre o Serviço</h6></label>
+                <input type="textarea" asp-for="Comentario" required class="form-control" placeholder="Digite um comentário sobre o serviço prestado"/> 
             </div>
             <div class="text-center">
                 <button id="btnEnviar" class="btn btn-primary mt-3 w-100">Enviar</button>

@@ -1,0 +1,63 @@
+﻿@model ServicoModel
+@{
+    Layout = "_LayoutDeslogado";
+    ViewData["Title"] = "Realizar Agendamento";
+}
+@if (TempData["MensagemSucesso"] != null)
+{
+        <div class="alert alert-success" role="alert">
+        @TempData["MensagemSucesso"]
+        </div>  
+}
+@if (TempData["MensagemErro"] != null)
+{
+        <div class="alert alert-danger" role="alert">
+        @TempData["MensagemErro"]
+        </div>  
+}
+<div class="text-center">
+        <h1 class="display-4">Bem Vindo!</h1>
+        <p>Conheça nosso site de reservas para barbearias.</p> 
+    </div>
+
+    <h1>Serviços</h1>
+    <div class="row">
+    @foreach (var servico in ViewBag.Servicos)
+    {
+            <div class="row mb-4">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">@servico.Nome</h5>
+                            <p class="card-text">Preço: R$ @servico.Preco</p>
+                            <a href="@Url.Action("Agendar", "Cliente", new { servicoId = servico.Id })" class="btn btn-primary">Agendar</a>
+                        </div>
+                   </div>
+               </div>
+           </div>      
+    }
+    </div>
+    <h1>Avaliações</h1>
+@foreach (AvaliacaoModel avaliacao in ViewBag.Avaliacoes)
+{
+        <div class="card mt-3">
+            <div class="card-body">
+                <h6 class="card-title">Serviço realizado por @avaliacao.Agendamento?.Barbeiro</h6>
+                <div class="avaliacao-estrelas">                      
+                @for (int i = 1; i <= 5; i++)
+                {
+                    if (i <= avaliacao.Avaliacao)
+                    {
+                                    <i class="star-fill bi bi-star-fill"></i>
+                    }
+                    else
+                    {
+                                    <i class="star bi bi-star"></i>
+                    }
+                }       
+                </div>
+                <p class="card-text">@avaliacao.Comentario</p>
+                <p class="card-text text-end">Cliente: @avaliacao.Agendamento?.Usuario?.Nome</p>
+            </div>
+        </div>
+}

@@ -17,12 +17,9 @@ namespace Aplicacao_Interativa
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            string mySqlConnection = builder.Configuration.GetConnectionString("DefaultConnection");
 
-
-            builder.Services.AddDbContext<BancoContext>
-                (options => options.UseMySql(
-                    "server=dbadsappinterativa.mysql.database.azure.com;initial catalog=BD_AplicacaoInterativa;uid=barberuseradmin;pwd=ads@1234",
-                    Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.36-mysql")));
+            builder.Services.AddDbContext<BancoContext>(options => options.UseMySql(mySqlConnection, ServerVersion.AutoDetect(mySqlConnection)));
 
             builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 

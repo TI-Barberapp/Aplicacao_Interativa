@@ -1,6 +1,5 @@
 ﻿@model LoginModel
-@{
-	Layout = "_LayoutDeslogado";
+@{	
 	ViewData["Title"] = "Login";
 }
 
@@ -30,6 +29,7 @@
   </div>
 
   <button type="submit" class="btn btn-primary btn-block w-100 my-1">Entrar</button>
+  <a class="btn btn-secondary btn-block w-100 my-1" role="button" asp-controller="ClienteDeslogado" asp-action="Index">Voltar</a>
     
 </form>
 

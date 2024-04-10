@@ -59,7 +59,7 @@ namespace Aplicacao_Interativa
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Login}/{action=Index}/{id?}");
+                pattern: "{controller=ClienteDeslogado}/{action=Index}/{id?}");
 
             app.Run();
         }

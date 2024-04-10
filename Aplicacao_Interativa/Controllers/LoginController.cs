@@ -50,7 +50,7 @@ namespace Aplicacao_Interativa.Controllers
         {
             _sessao.RemoverSessaoUsuario();
 
-            return RedirectToAction("Index", "Login");
+            return RedirectToAction("Index", "ClienteDeslogado");
         }
 
         [HttpPost]

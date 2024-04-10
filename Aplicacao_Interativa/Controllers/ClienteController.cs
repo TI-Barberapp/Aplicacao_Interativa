@@ -86,7 +86,7 @@ namespace Aplicacao_Interativa.Controllers
                             mensagem.Append("<p> Seu agendemento ja foi marcado,obrigado pela preferência e te aguardamos em breve!</p>");
 
                             TempData["MensagemSucesso"] = "O agendamento foi feito com sucesso";
-                            _email.Enviar(usuarioLogado.Email, "Confirmação de Agendamento", mensagem.ToString());
+                            //_email.Enviar(usuarioLogado.Email, "Confirmação de Agendamento", mensagem.ToString());
 
                             var agendamentoId = agendamento.Id;
                             return RedirectToAction("Avaliar", "Cliente", new {agendamentoId});

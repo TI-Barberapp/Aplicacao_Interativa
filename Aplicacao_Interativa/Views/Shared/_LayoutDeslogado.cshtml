@@ -3,7 +3,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Agendamento de Serviços</title>
+    <title>@ViewData["Title"] - Barbers & Hair Cutting</title>
+    <link rel="shortcut icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Aplicacao_Interativa.styles.css" asp-append-version="true" />
@@ -19,30 +20,12 @@
   <script>
     new window.VLibras.Widget('https://vlibras.gov.br/app');
   </script>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="ClienteDeslogado" asp-action="Index">Agendamento de Serviços</a>
-                <a class="navbar-brand" asp-area="" asp-controller="Login" asp-action="Index">Entrar</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>                
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+<body class="mb-0">
+    <header><script src="/js/header.js"></script></header>
+        <main role="main">
             @RenderBody()
         </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - Agendamento de Serviços</a>
-        </div>
-    </footer>
+    <footer><script src="/js/footer.js"></script></footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

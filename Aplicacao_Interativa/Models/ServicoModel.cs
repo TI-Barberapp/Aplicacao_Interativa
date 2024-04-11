@@ -8,5 +8,6 @@ namespace Aplicacao_Interativa.Models
         public string Nome { get; set; }
         [Column(TypeName = "decimal(10, 2)")]
         public decimal Preco { get; set; }
+        public string? CaminhoImagem { get; set; }
     }
 }

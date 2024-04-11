@@ -1,5 +1,6 @@
 ﻿@model LoginModel
 @{	
+    Layout = "_LayoutDeslogado";
 	ViewData["Title"] = "Login";
 }
 
@@ -17,33 +18,73 @@
                     </div>  
 }
 
-<h1 class="text-center">Acesse o seu perfil</h1>
-<form asp-controller="Login" asp-action="Entrar" method="post">
-  <div class="mb-3">
-    <label for="email">E-mail</label>
-    <input type="email" asp-for="Email" required class="form-control" placeholder="Digite seu e-mail"/>   
-  </div>
-  <div class="mb-3">
-    <label for="senha">Senha</label>
-     <input type="password" asp-for="Senha" required class="form-control" placeholder="Digite sua senha"/>
-  </div>
+<head>
+    <link href="@Url.Content("/css/style.css")" rel="stylesheet"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+    href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Rubik:wght@300,400;700&display=swap"
+    rel="stylesheet">
+    <link href="@Url.Content("/css/flaticon.min.css")" rel="stylesheet"/>
+    <link rel="preload" href="@Url.Content("/img/hero-banner.jpg")">
+</head>
 
-  <button type="submit" class="btn btn-primary btn-block w-100 my-1">Entrar</button>
-  <a class="btn btn-secondary btn-block w-100 my-1" role="button" asp-controller="ClienteDeslogado" asp-action="Index">Voltar</a>
-    
-</form>
+<main>
+    <article>
 
-<div class="d-flex justify-content-between">
-    <div>
-        <p class="mb-4 text-sm">
-             Esqueceu a senha? 
-             <a asp-controller="Login" asp-action="EsqueciSenha" class="linkcadastro text-primary text-gradient font-weight-bold">Redefinir Senha</a>
-        </p>
-    </div>
-    <div>
-        <p class="mb-4 text-sm">
-             Não tem um login? 
-            <a asp-controller="Cadastro" asp-action="Criar" class="linkcadastro text-primary text-gradient font-weight-bold">Faça seu cadastro</a>
-        </p>
-    </div>
-</div>
+      <!-- 
+        - #HERO
+      -->
+
+      <section class="section hero has-before has-bg-image" id="home" aria-label="home"
+        style="background-image: url('/img/hero-banner.jpg')">
+        <div class="formlogin">
+
+          <div class="container">
+            <!-- login -->
+            <div class="login">
+                  <i class="fas fa-sign-in-alt"></i>
+                  <strong>Bem-Vindo!</strong>
+                  <span>Entre na sua conta</span>
+                  <form asp-controller="Login" asp-action="Entrar" method="post">
+                      <div class="form">
+                        <div class="form-row">
+                            <i class="fas fa-user"></i>
+                            <label class="form-label" for="email">E-mail</label>
+                            <input type="email" asp-for="Email" required class="form-text" placeholder="Digite seu e-mail"/>   
+                        </div>
+                        <div class="form-row">
+                            <i class="fas fa-eye"></i>
+                            <label class="form-label" for="senha">Senha</label>
+                            <input type="password" asp-for="Senha" required class="form-text" placeholder="Digite sua senha"/>
+                        </div>
+
+                        <div class="form-row bottom">
+                              <p class="mb-4 text-sm">                                  
+                                 <a asp-controller="Login" asp-action="EsqueciSenha" class="forgot">Esqueceu a senha?</a>
+                              </p>
+                             <p class="mb-4 text-sm">
+                                <a asp-controller="Cadastro" asp-action="Criar" class="forgot">Faça seu cadastro</a>
+                             </p>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block w-100 my-1">Entrar</button>
+                      </div>                      
+                </form>                
+            </div>          
+      </section>
+
+    </article>
+  </main>
+
+
+  <!-- 
+    - js link
+  -->
+  <script src="/js/home.js" defer></script>
+
+  <!-- 
+    - ionicon link
+  -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>

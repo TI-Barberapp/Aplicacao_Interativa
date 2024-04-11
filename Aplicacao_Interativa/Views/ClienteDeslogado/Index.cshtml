@@ -1,7 +1,7 @@
 ﻿@model ServicoModel
 @{
     Layout = "_LayoutDeslogado";
-    ViewData["Title"] = "Realizar Agendamento";
+    ViewData["Title"] = "Barber Reach";
 }
 @if (TempData["MensagemSucesso"] != null)
 {
@@ -15,49 +15,562 @@
         @TempData["MensagemErro"]
         </div>  
 }
-<div class="text-center">
-        <h1 class="display-4">Bem Vindo!</h1>
-        <p>Conheça nosso site de reservas para barbearias.</p> 
-    </div>
 
-    <h1>Serviços</h1>
-    <div class="row">
-    @foreach (var servico in ViewBag.Servicos)
-    {
-            <div class="row mb-4">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">@servico.Nome</h5>
-                            <p class="card-text">Preço: R$ @servico.Preco</p>
-                            <a href="@Url.Action("Agendar", "Cliente", new { servicoId = servico.Id })" class="btn btn-primary">Agendar</a>
-                        </div>
-                   </div>
-               </div>
-           </div>      
-    }
-    </div>
-    <h1>Avaliações</h1>
-@foreach (AvaliacaoModel avaliacao in ViewBag.Avaliacoes)
-{
-        <div class="card mt-3">
-            <div class="card-body">
-                <h6 class="card-title">Serviço realizado por @avaliacao.Agendamento?.Barbeiro</h6>
-                <div class="avaliacao-estrelas">                      
-                @for (int i = 1; i <= 5; i++)
-                {
-                    if (i <= avaliacao.Avaliacao)
-                    {
-                                    <i class="star-fill bi bi-star-fill"></i>
-                    }
-                    else
-                    {
-                                    <i class="star bi bi-star"></i>
-                    }
-                }       
-                </div>
-                <p class="card-text">@avaliacao.Comentario</p>
-                <p class="card-text text-end">Cliente: @avaliacao.Agendamento?.Usuario?.Nome</p>
-            </div>
+<head>
+    <link href="@Url.Content("/css/IndexClienteCss.css")" rel="stylesheet"/>
+    <link href="@Url.Content("/css/style.css")" rel="stylesheet"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+    href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Rubik:wght@300,400;700&display=swap"
+    rel="stylesheet">
+    <link href="@Url.Content("/css/flaticon.min.css")" rel="stylesheet"/>
+    <link rel="preload" href="@Url.Content("/img/hero-banner.jpg")">
+</head>
+
+
+
+<main>
+    <article>
+
+      <!-- 
+        - #HERO
+      -->
+
+      <section class="section hero has-before has-bg-image" id="home" aria-label="home"
+        style="background-image: url('/img/hero-banner.jpg')">
+        <div class="container">
+
+          <h1 class="h1 hero-title2">Seu visual </h1>
+          <h1 class="h1 hero-title">merece o melhor!</h1>
+
+          <p class="hero-text">
+            Barber Reach é um lugar para o homem moderno cuidar de si mesmo. Venha, relaxe e aproveite nosso ambiente
+          </p>
+
+          <a href="#pricing" class="btn has-before">
+            <span class="span">Explore Nossos Planos e Kits</span>
+
+            <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+          </a>
+
         </div>
-}
+      </section>
+
+
+
+
+
+      <!-- 
+        - #SERVICE
+      -->
+
+      <section class="section service" id="services" aria-label="services">
+        <div class="container">
+
+          <h2 class="h2 section-title text-center">Serviços </h2>
+
+          <p class="section-text text-center">
+            Confira alguns dos nossos serviços oferecidos.
+          </p>
+
+          <ul class="grid-list">
+
+            <li>
+              <div class="service-card">
+
+                <div class="card-icon">
+                  <i class="flaticon-salon"></i>
+                </div>
+
+                <h3 class="h3">
+                  <a href="#cortemasculino" class="card-title">Cortes Masculinos</a>
+                </h3>
+
+                <p class="card-text">
+                  Opções de cortes tradicionais, contemporâneos e personalizados para atender às suas preferências.
+                </p>
+
+                <a href="#pricing" class="card-btn" aria-label="more">
+                  <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+                </a>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="service-card">
+
+                <div class="card-icon">
+                  <i class="flaticon-shampoo"></i>
+                </div>
+
+                <h3 class="h3">
+                  <a href="#" class="card-title">Barba</a>
+                </h3>
+
+                <p class="card-text">
+                  Utilização de produtos de qualidade para garantir hidratação e maciez da barba e da pele.
+                </p>
+
+                <a href="#pricing" class="card-btn" aria-label="more">
+                  <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+                </a>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="service-card">
+
+                <div class="card-icon">
+                  <i class="flaticon-hot-stone"></i>
+                </div>
+
+                <h3 class="h3">
+                  <a href="#" class="card-title">Pigmentação</a>
+                </h3>
+
+                <p class="card-text">
+                  Técnica especializada para criar uma aparência natural e uniforme.
+                </p>
+
+                <a href="#pricing" class="card-btn" aria-label="more">
+                  <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+                </a>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="service-card">
+
+                <div class="card-icon">
+                  <i class="flaticon-treatment"></i>
+                </div>
+
+                <h3 class="h3">
+                  <a href="#" class="card-title">Sobrancelha</a>
+                </h3>
+
+                <p class="card-text">
+                  Técnicas profissionais para correção de falhas e obtenção da forma desejada.
+
+                </p>
+
+                <a href="#pricing" class="card-btn" aria-label="more">
+                  <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+                </a>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="service-card">
+
+                <div class="card-icon">
+                  <i class="flaticon-shaving-razor"></i>
+                </div>
+
+                <h3 class="h3">
+                  <a href="#" class="card-title">Acabamento</a>
+                </h3>
+
+                <p class="card-text">
+                  Sit amet consectetur adipisci elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </p>
+
+                <a href="#pricing" class="card-btn" aria-label="more">
+                  <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+                </a>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="service-card">
+
+                <div class="card-icon">
+                  <i class="flaticon-hair-dye"></i>
+                </div>
+
+                <h3 class="h3">
+                  <a href="#" class="card-title">Barboterapia</a>
+                </h3>
+
+                <p class="card-text">
+                  Tratamento revitalizante para nutrir e fortalecer os fios da barba.
+                </p>
+
+                <a href="#pricing" class="card-btn" aria-label="more">
+                  <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+                </a>
+
+              </div>
+            </li>
+
+          </ul>
+
+        </div>
+      </section>
+
+
+
+
+
+      <!-- 
+        - #PRICING
+      -->
+
+      <section class="section pricing has-bg-image has-before" id="pricing" aria-label="pricing"
+        style="background-image: url('/img/pricing-bg.jpg')">
+        <div class="container">
+
+          <h2 class="h2 section-title text-center">Planos & KITS</h2>
+
+          <p class="section-text text-center">
+            Descubra nossos diversos planos e kits exclusivos para cuidar da sua aparência.
+          </p>
+
+          <div class="pricing-tab-container">
+
+            <ul class="tab-filter">
+
+              <li>
+                <button class="filter-btn active" data-filter-btn="all">
+                  <div class="btn-icon">
+                    <i class="flaticon-beauty-salon" aria-hidden="true"></i>
+                  </div>
+
+                  <p class="btn-text">Todos</p>
+                </button>
+              </li>
+
+              <li>
+                <button class="filter-btn" data-filter-btn="Cortes">
+                  <div class="btn-icon">
+                    <i class="flaticon-relax" aria-hidden="true"></i>
+                  </div>
+
+                  <p class="btn-text">Cortes</p>
+                </button>
+              </li>
+
+              <li>
+                <button class="filter-btn" data-filter-btn="Acabamentos">
+                  <div class="btn-icon">
+                    <i class="flaticon-massage" aria-hidden="true"></i>
+                  </div>
+
+                  <p class="btn-text">Acabamentos</p>
+                </button>
+              </li>
+
+              <li>
+                <button class="filter-btn" data-filter-btn="Tratamentos">
+                  <div class="btn-icon">
+                    <i class="flaticon-spa" aria-hidden="true"></i>
+                  </div>
+
+                  <p class="btn-text">Tratamentos</p>
+                </button>
+              </li>
+              <!--
+              <li>
+                <button class="filter-btn" data-filter-btn="meditations">
+                  <div class="btn-icon">
+                    <i class="flaticon-yoga" aria-hidden="true"></i>
+                  </div>
+
+                  <p class="btn-text">Meditations</p>
+                </button>
+              </li>
+              -->
+
+              <li>
+                <button class="filter-btn" data-filter-btn="Produtos">
+                  <div class="btn-icon">
+                    <i class="flaticon-razor-blade" aria-hidden="true"></i>
+                  </div>
+
+                  <p class="btn-text">produtos</p>
+                </button>
+              </li>
+
+            </ul>
+
+            <!-- 
+               - #Grid Lists
+              -->
+            <ul class="grid-list">
+
+                @foreach (var servico in ViewBag.Servicos)
+                {
+                        <li data-filter="Acabamentos">
+                            <div class="pricing-card">
+
+                              <figure class="card-banner img-holder" style="--width: 90; --height: 90;">
+                                        <img src="@Url.Content(servico.CaminhoImagem)" width="90" height="90" alt="@servico.Nome"
+                                  class="img-cover">
+                              </figure>
+
+                              <div class="Acabamentos">
+                                <h3 class="h3 card-title">@servico.Nome</h3>
+
+                                <p class="card-text"> 30-50 minutos</p>
+                              </div>
+
+                              <data class="card-price">R$@servico.Preco</data>
+
+                              <a href="@Url.Action("Agendar", "Cliente", new { servicoId = servico.Id })" class="button-pricing">Agendar</a>
+                            </div>
+                        </li>
+                }     
+
+            </ul>
+
+          </div>
+
+        </div>
+      </section>
+
+
+
+
+
+      <!-- 
+        - #GALERIA
+      -->
+
+      <section class="section gallery" id="gallery" aria-label="photo gallery">
+        <div class="container">
+
+          <div class="title-wrapper">
+
+            <div>
+              <h2 class="h2 section-title">Nossa Galeria</h2>
+
+              <p class="section-text">
+                Explore nossa galeria e descubra momentos capturados que refletem a essência da nossa barbearia.
+              </p>
+            </div>
+
+            <a href="#" class="btn has-before">
+              <span class="span">Veja Mais</span>
+
+              <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+            </a>
+
+          </div>
+
+          <ul class="grid-list">
+
+            <li>
+              <div class="gallery-card">
+
+                <figure class="card-banner img-holder" style="--width: 422; --height: 550;">
+                  <img src="/img/gallery-1.jpg" width="422" height="550" loading="lazy" alt="Hair Cutting"
+                    class="img-cover">
+                </figure>
+
+                <div class="card-content">
+
+                  <h3 class="h3 card-title">Acabamento</h3>
+
+                  <p class="card-text">Barbearia e Serviços</p>
+
+                  <a href="#" class="card-btn" aria-label="Read more">
+                    <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+                  </a>
+
+                </div>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="gallery-card">
+
+                <figure class="card-banner img-holder" style="--width: 422; --height: 550;">
+                  <img src="/img/gallery-2.jpg" width="422" height="550" loading="lazy" alt="Hair Cutting"
+                    class="img-cover">
+                </figure>
+
+                <div class="card-content">
+
+                  <h3 class="h3 card-title">Barba</h3>
+
+                  <p class="card-text">Barbearia e Serviços</p>
+
+                  <a href="#" class="card-btn" aria-label="Read more">
+                    <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+                  </a>
+
+                </div>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="gallery-card">
+
+                <figure class="card-banner img-holder" style="--width: 422; --height: 550;">
+                  <img src="/img/gallery-3.jpg" width="422" height="550" loading="lazy" alt="Hair Cutting"
+                    class="img-cover">
+                </figure>
+
+                <div class="card-content">
+
+                  <h3 class="h3 card-title">Corte Masculino</h3>
+
+                  <p class="card-text">Barbearia e Serviços</p>
+
+                  <a href="#" class="card-btn" aria-label="Read more">
+                    <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+                  </a>
+
+                </div>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="gallery-card">
+
+                <figure class="card-banner img-holder" style="--width: 422; --height: 550;">
+                  <img src="/img/gallery-4.jpg" width="422" height="550" loading="lazy" alt="Hair Cutting"
+                    class="img-cover">
+                </figure>
+
+                <div class="card-content">
+
+                  <h3 class="h3 card-title">Pigmentação</h3>
+
+                  <p class="card-text">Barbearia e Serviços</p>
+
+                  <a href="#" class="card-btn" aria-label="Read more">
+                    <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+                  </a>
+
+                </div>
+
+              </div>
+            </li>
+
+          </ul>
+
+        </div>
+      </section>
+
+
+
+
+
+
+      <!-- 
+        - #AGENDAMETNO // LOGIN CADASTRO
+      -->
+
+      <!--
+      <section class="section appoin" id="appointment" aria-label="appointment">
+        <div class="container">
+
+          <div class="appoin-card">
+
+            <figure class="card-banner img-holder" style="--width: 250; --height: 774;">
+              <img src="/img/appoin-banner-1.jpg" width="250" height="774" loading="lazy" alt=""
+                class="img-cover">
+            </figure>
+
+            <div class="card-content">
+
+              <h2 class="h2 section-title">Agende Seu Horário</h2>
+
+              <p class="section-text">
+                Agende seu horário conosco e garanta um momento dedicado inteiramente a você.
+              </p>
+
+              <form action="" class="appoin-form">
+
+                <div class="input-wrapper">
+                  <input type="text" name="name" placeholder="Nome Completo" required class="input-field">
+
+                  <input type="email" name="email_address" placeholder="Endereço de Email" required class="input-field">
+                </div>
+
+                <div class="input-wrapper">
+                  <input type="text" name="phone" placeholder="Numero de Telefone" required class="input-field">
+
+                  <select name="serviço" placeholder="serviço" class="input-field">
+
+                    <option>serviços</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+
+                  </select>
+                </div>
+
+                <input type="date" name="date" required class="input-field date">
+
+
+                <button type="submit" class="form-btn">
+                  <span class="span">Appointment Now</span>
+
+                  <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+                </button>
+
+              </form>
+
+            </div>
+
+            <figure class="card-banner img-holder" style="--width: 250; --height: 774;">
+              <img src="/img/appoin-banner-2.jpg" width="250" height="774" loading="lazy" alt=""
+                class="img-cover">
+            </figure>
+
+          </div>
+
+        </div>
+      </section>
+     -->
+
+    </article>
+  </main>
+
+
+
+
+
+  <!-- 
+    - #FOOTER
+  -->
+
+
+
+
+
+  <!-- 
+    - #BACK TO TOP
+  -->
+
+  <a href="#top" class="back-top-btn" aria-label="back to top" data-back-top-btn>
+    <ion-icon name="chevron-up" aria-hidden="true"></ion-icon>
+  </a>
+
+
+
+
+
+  <!-- 
+    - js link
+  -->
+  <script src="/js/home.js" defer></script>
+
+  <!-- 
+    - ionicon link
+  -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>

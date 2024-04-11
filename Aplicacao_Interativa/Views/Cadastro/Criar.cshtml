@@ -1,6 +1,7 @@
 ﻿@using Aplicacao_Interativa.Enums
 @model UsuarioModel
 @{
+    Layout = "_LayoutDeslogado";
     ViewData["Title"] = "Cadastro";
 }
 
@@ -11,29 +12,89 @@
                         </div>  
 }
 
-<h1 class="display-4 text-center">Cadastro</h1>
+<head>
+    <link href="@Url.Content("/css/style.css")" rel="stylesheet"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+    href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Rubik:wght@300,400;700&display=swap"
+    rel="stylesheet">
+    <link href="@Url.Content("/css/flaticon.min.css")" rel="stylesheet"/>
+    <link rel="preload" href="@Url.Content("/img/hero-banner.jpg")">
+</head>
 
-<form asp-controller="Cadastro" asp-action="Criar" method="post">
-  <div class="mb-3">
-    <label for="email">E-mail</label>
-    <input type="email" asp-for="Email" required class="form-control" placeholder="Digite seu e-mail"/>   
-  </div>
-  <div class="mb-3">
-    <label for="nome">Nome</label>
-    <input type="text" asp-for="Nome" required class="form-control" placeholder="Digite seu nome completo"/>
-  </div>
-  <div class="mb-3">
-    <label for="celualr">Celular</label>
-    <input type="text" asp-for="Celular" required class="form-control" placeholder="Digite seu celular"/>
-  </div>
+<main>
+    <article>
 
-  <div class="mb-3">
-    <label for="senha">Senha</label>
-     <input type="password" asp-for="Senha" required class="form-control" placeholder="Digite sua senha"/>
-  </div>
+      <!-- 
+        - #HERO
+      -->
 
-  <input type="hidden" asp-for="Perfil" value="@PerfilEnum.Cliente" />
+      <section class="section hero has-before has-bg-image" id="home" aria-label="home"
+        style="background-image: url('/img/hero-banner.jpg')">
+        <div class="formlogin">
 
-  <button type="submit" class="btn btn-primary btn-block w-100 my-1">Adicionar</button>
-  <a class="btn btn-secondary btn-block w-100 my-1" role="button" asp-controller="Login" asp-action="Index">Voltar</a>
-</form>
+          <div class="container">
+            <!-- register -->
+          <div class="register">
+            <i class="fas fa-user-circle"></i>
+            <strong>Criar Conta!</strong>
+            <form asp-controller="Cadastro" asp-action="Criar" method="post">
+              <fieldset>
+                <div class="form">
+                  <div class="form-row">
+                    <i class="fas fa-user"></i>
+                    <label class="form-label" for="register-username">Nome</label>
+                    <input type="text" asp-for="Nome" required class="form-text" id="register-username"
+                      placeholder="Digite o Nome">
+                  </div>
+                  <div class="form-row">
+                    <i class="fas fa-envelope"></i>
+                    <label class="form-label" for="register-email">E-mail</label>
+                    <input type="text" asp-for="Email" required class="form-text" id="register-email"
+                      placeholder="Digite o e-mail">
+                  </div>
+
+                  <div class="form-row">
+                    <i class="fas fa-phone"></i>
+                    <label class="form-label" for="register-phone">Telefone</label>
+                    <input type="tel" asp-for="Celular" required class="form-text" id="register-phone"
+                      placeholder="Digite o Telefone">
+                  </div>
+
+                  <div class="form-row">
+                    <i class="fas fa-lock"></i>
+                    <label class="form-label" for="register-password">Senha</label>
+                    <input type="password" asp-for="Senha" required class="form-text" id="register-password"
+                      placeholder="Digite a Senha">
+                  </div>
+
+                  <input type="hidden" asp-for="Perfil" value="@PerfilEnum.Cliente" />
+
+                  <div class="button-container">
+                      <div class="form-row button-login d-flex justify-content-between">
+                        <button type="submit" class="btn btn-login">Criar <i class="fas fa-arrow-right"></i></button>
+                        <a class="btn btn-secondary" role="button" asp-controller="Login" asp-action="Index">Voltar</a>
+                      </div>
+                  </div>
+
+              </fieldset>
+            </form>
+          </div>               
+            </div>          
+      </section>
+
+    </article>
+  </main>
+
+
+  <!-- 
+    - js link
+  -->
+  <script src="/js/home.js" defer></script>
+
+  <!-- 
+    - ionicon link
+  -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>

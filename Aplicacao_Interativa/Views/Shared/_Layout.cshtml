@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Agendamento de Serviços</title>
+    <link rel="shortcut icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Aplicacao_Interativa.styles.css" asp-append-version="true" />
@@ -19,25 +20,13 @@
   <script>
     new window.VLibras.Widget('https://vlibras.gov.br/app');
   </script>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                @await Component.InvokeAsync("Menu")
-            </div>
-        </nav>
-    </header>
-    <div class="container">
+<body class="mb-0">
+    <header><script src="/js/headerLogado.js"></script></header>
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
-    </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - Agendamento de Serviços</a>
-        </div>
-    </footer>
+    <footer><script src="/js/footer.js"></script></footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

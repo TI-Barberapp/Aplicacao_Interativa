@@ -1,4 +1,5 @@
-﻿using Aplicacao_Interativa.Helper;
+﻿using Aplicacao_Interativa.Enums;
+using Aplicacao_Interativa.Helper;
 using Aplicacao_Interativa.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,7 +22,7 @@ namespace Aplicacao_Interativa.Controllers
             _usuarioRepositorio = usuarioRepositorio;
             _email = email;
             _avalicaoRepositorio = avalicaoRepositorio;
-        }
+        }        
         public IActionResult Index()
         {
             List<AvaliacaoModel> avaliacoes = _avalicaoRepositorio.BuscarAvaliacoesComRelacionamentos();
@@ -29,6 +30,21 @@ namespace Aplicacao_Interativa.Controllers
 
             List<ServicoModel> servicos = _agendamentoRepositorio.BuscarServicos();
             ViewBag.Servicos = servicos;
+
+            //Se o usuário estiver logado retorna para a home
+            var usuarioLogado = _sessao.BuscarSessaoUsuario();
+
+            if (usuarioLogado != null)
+            {
+                if (usuarioLogado.Perfil == PerfilEnum.Barbeiro)
+                {
+                    return RedirectToAction("Index", "Barbeiro");
+                }
+                else if (usuarioLogado.Perfil == PerfilEnum.Cliente)
+                {
+                    return RedirectToAction("Index", "Cliente");
+                }
+            }
 
             return View();
         }

@@ -33,5 +33,10 @@ namespace Aplicacao_Interativa.Helper
         {
             return _bancoContext.Usuarios.FirstOrDefault(x => x.Email.ToUpper() == email.ToUpper());
         }
+
+        public UsuarioModel RecuperarPeloId(int id)
+        {
+            return _bancoContext.Usuarios.FirstOrDefault(u => u.Id == id);
+        }
     }
 }

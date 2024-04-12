@@ -14,15 +14,13 @@ namespace Aplicacao_Interativa.Controllers
         private readonly BancoContext _context;
         private readonly ISessao _sessao;
         private readonly IEmail _email;
-        private readonly ITokenCacheService _tokenCacheService;
         private readonly IUsuarioRepositorio _usuarioRepositorio;
 
-        public LoginController(BancoContext context, ISessao sessao, IEmail email, ITokenCacheService tokenCacheService, IUsuarioRepositorio usuarioRepositorio)
+        public LoginController(BancoContext context, ISessao sessao, IEmail email, IUsuarioRepositorio usuarioRepositorio)
         {
             _context = context;
             _sessao = sessao;
             _email = email;
-            _tokenCacheService = tokenCacheService;
             _usuarioRepositorio = usuarioRepositorio;
         }
 
@@ -108,12 +106,8 @@ namespace Aplicacao_Interativa.Controllers
 
                     if (usuario != null)
                     {
-                        var token = Guid.NewGuid().ToString();
+                        var urlConfirmacao = Url.Action("RedefinirSenha", "Login", new { id = usuario.Id }, protocol: HttpContext.Request.Scheme);
 
-                        _tokenCacheService.SalvarTokenRedefinicaoSenha(usuario.Id, token);
-
-
-                        string urlConfirmacao = Url.Action(nameof(RedefinirSenha), "Login", new {token}, Request.Scheme);
 
                         var mensagem = new StringBuilder();
 
@@ -138,11 +132,18 @@ namespace Aplicacao_Interativa.Controllers
         }
 
         [HttpGet]
-        public IActionResult RedefinirSenha(string token)
+        public IActionResult RedefinirSenha(int id)
         {
-            var modelo = new RedefinirSenhaModel();
-            modelo.Token = token;
-            return View(modelo);
+            UsuarioModel usuario = _usuarioRepositorio.RecuperarPeloId(id);
+
+            if (usuario == null)
+            {
+                id = -1;
+            }
+
+            var model = new RedefinirSenhaModel() { Usuario = id };
+
+            return View(model);
         }
 
         [HttpPost]
@@ -150,32 +151,31 @@ namespace Aplicacao_Interativa.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
+                if (!ModelState.IsValid)
                 {
-                    UsuarioModel usuario = _usuarioRepositorio.BuscarPorLogin(redefinirSenhaModel.Email);
-
-                    if (usuario != null)
-                    {
-                        usuario.Senha = redefinirSenhaModel.NovaSenha;
-
-                        usuario.SetGerarHash();
-
-                        _context.SaveChanges();
-                        TempData["MensagemSucesso"] = "Senha redefinida com sucesso! Agora você já pode fazer login com a nova senha.";
-                        return RedirectToAction("Index", "Login");
-                    }
-                    else
-                    {
-                        TempData["MensagemErro"] = "Usuário não encontrado.";
-                        return RedirectToAction("RedefinirSenha", "Login");
-                    }
+                    return RedirectToAction("RedefinirSenha", "Login");
                 }
-                TempData["MensagemErro"] = "Não foi possível redefinir sua senha. Tente novamente.";
-                return RedirectToAction("Index", "Login");
+
+                UsuarioModel usuario = _usuarioRepositorio.RecuperarPeloId(redefinirSenhaModel.Usuario);
+
+                if(usuario != null)
+                {
+                    usuario.Senha = redefinirSenhaModel.NovaSenha;
+
+                    usuario.SetGerarHash();
+                    _context.SaveChanges();
+
+                    TempData["MensagemSucesso"] = "Senha redefinida com sucesso! Agora você já pode fazer login com a nova senha.";
+                    return RedirectToAction("Index", "Login");
+                }
+
+                TempData["MensagemErro"] = "Usuário não encontrado.";
+                return RedirectToAction("RedefinirSenha", "Login");
+
             }
             catch (Exception erro)
             {
-                TempData["MensagemErro"] = $"Não foi possível redefinir sua senha. Detalhes: {erro.Message}";
+                Console.WriteLine($"Não foi possível redefinir a senha. Erro: {erro.Message}");
                 return RedirectToAction("Index", "Login");
             }
         }

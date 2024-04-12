@@ -22,13 +22,20 @@ label {
     margin-bottom: 5px;
 }
 
+.erro-mensagem {
+    color: red;
+    font-size: 17px;
+    font-weight: bold;
+    border: none;
+}
+
 input[type="email"],
-input[type="submit"], a[type="submit"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+input[type="submit"], a[type="submit"]{
+    width: 100% !important;
+    padding: 10px !important;
+    margin-bottom: 10px !important;
+    border: 1px solid #ccc !important;
+    border-radius: 5px !important;
 }
 
 input[type="submit"], a[type="submit"] {

@@ -10,6 +10,7 @@ namespace Aplicacao_Interativa.Helper
         List<UsuarioModel> BuscarBarbeiros();
 
         UsuarioModel BuscarPorLogin(string email);
+        UsuarioModel RecuperarPeloId(int id);
     }
 
 }

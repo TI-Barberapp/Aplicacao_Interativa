@@ -38,5 +38,16 @@ namespace Aplicacao_Interativa.Helper
         {
             return _bancoContext.Usuarios.FirstOrDefault(u => u.Id == id);
         }
+
+        public UsuarioModel SalvarNovaSenha(UsuarioModel usuario, string novaSenha)
+        {
+            usuario.Senha = novaSenha;
+
+            usuario.SetGerarHash();
+
+            _bancoContext.SaveChanges();
+
+            return usuario;
+        }
     }
 }

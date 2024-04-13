@@ -11,14 +11,12 @@ namespace Aplicacao_Interativa.Controllers
 {
     public class LoginController : Controller
     {
-        private readonly BancoContext _context;
         private readonly ISessao _sessao;
         private readonly IEmail _email;
         private readonly IUsuarioRepositorio _usuarioRepositorio;
 
-        public LoginController(BancoContext context, ISessao sessao, IEmail email, IUsuarioRepositorio usuarioRepositorio)
+        public LoginController(ISessao sessao, IEmail email, IUsuarioRepositorio usuarioRepositorio)
         {
-            _context = context;
             _sessao = sessao;
             _email = email;
             _usuarioRepositorio = usuarioRepositorio;
@@ -55,37 +53,29 @@ namespace Aplicacao_Interativa.Controllers
         public IActionResult Entrar(LoginModel loginModel)
         {
             try
-            {               
+            {
                 if (ModelState.IsValid)
                 {
                     UsuarioModel usuario = _usuarioRepositorio.BuscarPorLogin(loginModel.Email);
 
-                    if (usuario != null)
+                    if (usuario != null && usuario.SenhaValida(loginModel.Senha))
                     {
-                        if (usuario.SenhaValida(loginModel.Senha))
+                        _sessao.CriarSessaoUsuario(usuario);
+
+                        if (usuario.Perfil == PerfilEnum.Barbeiro)
                         {
-                            _sessao.CriarSessaoUsuario(usuario);
-
-                            if (usuario.Perfil == PerfilEnum.Barbeiro)
-                            {
-                                return RedirectToAction("Index", "Barbeiro");
-                            }
-                            else if (usuario.Perfil == PerfilEnum.Cliente)
-                            {
-                                return RedirectToAction("Index", "Cliente");
-                            }
+                            return RedirectToAction("Index", "Barbeiro");
                         }
-                        TempData["MensagemErro"] = $"Senha do usuário é inválida.";
+                        else if (usuario.Perfil == PerfilEnum.Cliente)
+                        {
+                            return RedirectToAction("Index", "Cliente");
+                        }
                     }
-
-                    TempData["MensagemErro"] = $"Usuário e/ou senha inválido(s).";
                 }
-
-                return View("Index");
+                return RedirectToAction("Index");
             }
-            catch (Exception erro)
+            catch (Exception)
             {
-                TempData["MensagemErro"] = $"Não foi possível realizar o login. Detalhes: {erro.Message}";
                 return RedirectToAction("Index");
             }
         }
@@ -115,18 +105,14 @@ namespace Aplicacao_Interativa.Controllers
                         mensagem.Append($"<p>Clique <a href='{urlConfirmacao}'>aqui</a> para redefinir sua senha.</p>");
 
                         _email.Enviar(usuario.Email, "Redefinir Senha", mensagem.ToString());
-                        TempData["MensagemSucesso"] = $"E-mail de redefinição de senha enviado com sucesso.";
                         return RedirectToAction("Index", "Login");
-                    }
-                     
-                    TempData["MensagemErro"] = $"Não foi possível encontrar o e-mail informado.";
+                    }                     
                 }
 
                 return RedirectToAction("EsqueciSenha", "Login");
             }
-            catch (Exception erro)
+            catch (Exception)
             {
-                TempData["MensagemErro"] = $"Não foi possível redefinir sua senha. Detalhes: {erro.Message}";
                 return RedirectToAction("EsqueciSenha", "Login");
             }
         }
@@ -158,26 +144,20 @@ namespace Aplicacao_Interativa.Controllers
 
                 UsuarioModel usuario = _usuarioRepositorio.RecuperarPeloId(redefinirSenhaModel.Usuario);
 
-                if(usuario != null)
+                if (usuario != null)
                 {
-                    usuario.Senha = redefinirSenhaModel.NovaSenha;
+                    _usuarioRepositorio.SalvarNovaSenha(usuario, redefinirSenhaModel.NovaSenha);
 
-                    usuario.SetGerarHash();
-                    _context.SaveChanges();
-
-                    TempData["MensagemSucesso"] = "Senha redefinida com sucesso! Agora você já pode fazer login com a nova senha.";
                     return RedirectToAction("Index", "Login");
                 }
 
-                TempData["MensagemErro"] = "Usuário não encontrado.";
                 return RedirectToAction("RedefinirSenha", "Login");
 
             }
-            catch (Exception erro)
+            catch (Exception)
             {
-                Console.WriteLine($"Não foi possível redefinir a senha. Erro: {erro.Message}");
                 return RedirectToAction("Index", "Login");
-            }
+            }            
         }
     }
 }

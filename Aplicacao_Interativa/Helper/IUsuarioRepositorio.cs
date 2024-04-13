@@ -11,6 +11,8 @@ namespace Aplicacao_Interativa.Helper
 
         UsuarioModel BuscarPorLogin(string email);
         UsuarioModel RecuperarPeloId(int id);
+
+        UsuarioModel SalvarNovaSenha(UsuarioModel usuario, string novaSenha);
     }
 
 }

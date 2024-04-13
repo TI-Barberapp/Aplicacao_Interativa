@@ -1,4 +1,6 @@
-﻿namespace Aplicacao_Interativa.Helper
+﻿using Aplicacao_Interativa.Models;
+
+namespace Aplicacao_Interativa.Helper
 {
     public interface IEmail
     {

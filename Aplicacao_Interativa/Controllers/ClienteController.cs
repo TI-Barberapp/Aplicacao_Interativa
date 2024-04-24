@@ -67,27 +67,34 @@ namespace Aplicacao_Interativa.Controllers
             try
             {
                 if (ModelState.IsValid)
-                {
+                {                    
                     var usuarioId = _sessao.BuscarSessaoUsuarioId();
-                    var usuarioLogado = _sessao.BuscarSessaoUsuario();                    
 
                     if (usuarioId != null)
                     {
                         var agendamentoExistente = _agendamentoRepositorio.BuscarPorData(agendamento.DataAgendamento, agendamento.HorarioId);
 
                         if (agendamentoExistente == null)
-                        {
+                        { 
+                            //Efetivação do agendamento e envio para o banco
                             agendamento.usuarioID = usuarioId.Value;
                             agendamento = _agendamentoRepositorio.Adicionar(agendamento);
+                            TempData["MensagemSucesso"] = "O agendamento foi feito com sucesso";
+                            
 
+                            //Configuração dos componentes presentes no e-mail e envio do mesmo
+                            var usuarioLogado = _sessao.BuscarSessaoUsuario();
+                            var emailBarbeiro = _usuarioRepositorio.BuscarEmailBarbeiroEspecifico(agendamento.Barbeiro);
+                            var nomeServico = _agendamentoRepositorio.BuscarServicoPeloId(agendamento.ServicoId);
+                            var horarioServico = _agendamentoRepositorio.BuscarHorarioPeloId(agendamento.HorarioId);
 
                             var mensagem = new StringBuilder();
-                            mensagem.Append($"<p>Olá {usuarioLogado.Nome}.</p>");
-                            mensagem.Append("<p> Seu agendemento ja foi marcado,obrigado pela preferência e te aguardamos em breve!</p>");
+                            mensagem.Append($"<p>Olá {agendamento.Barbeiro}.</p>");
+                            mensagem.Append($"<p> O cliente {usuarioLogado.Nome} marcou um/a {nomeServico} no dia {agendamento.DataAgendamento.ToShortDateString()} às {horarioServico} horas.</p>");
 
-                            TempData["MensagemSucesso"] = "O agendamento foi feito com sucesso";
-                            //_email.Enviar(usuarioLogado.Email, "Confirmação de Agendamento", mensagem.ToString());
+                            _email.Enviar(emailBarbeiro, "Confirmação de Agendamento", mensagem.ToString());
 
+                            //Redirecionamento da página para a avaliação
                             var agendamentoId = agendamento.Id;
                             return RedirectToAction("Avaliar", "Cliente", new {agendamentoId});
                         }

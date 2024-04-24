@@ -49,5 +49,19 @@ namespace Aplicacao_Interativa.Helper
 
             return usuario;
         }
+
+        public string BuscarEmailBarbeiroEspecifico(string nome)
+        {
+            List<UsuarioModel> listaBarbeiro = BuscarBarbeiros();
+
+            foreach (UsuarioModel barbeiros in listaBarbeiro)
+            {
+                if(barbeiros.Nome == nome)
+                {
+                    return barbeiros.Email;
+                }
+            }
+            return "agendamentobarber@outlook.com";
+        }
     }
 }

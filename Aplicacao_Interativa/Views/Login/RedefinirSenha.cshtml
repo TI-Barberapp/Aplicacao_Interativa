@@ -4,13 +4,6 @@
     ViewData["Title"] = "Redefinir Senha";
 }
 
-@if (TempData["MensagemErro"] != null)
-{
-                        <div class="alert alert-danger" role="alert">
-        @TempData["MensagemErro"]
-                        </div>  
-}
-
 <head>
     <link rel="stylesheet" href="/css/recuperar.css">
     <link rel="stylesheet" href="/css/style.css">
@@ -18,6 +11,12 @@
 
 <div class="recuperar">
     <h2>Redefina sua nova senha</h2>
+    @if (TempData["MensagemErro"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["MensagemErro"]
+        </div>
+    }
     <form asp-controller="Login" asp-action="RedefinirSenha" method="post" onsubmit="return validarFormulario()">
         <input type="hidden" asp-for="Usuario" value="@Model.Usuario" />
         <div class="mb-3">

@@ -4,20 +4,6 @@
 	ViewData["Title"] = "Login";
 }
 
-@if (TempData["MensagemSucesso"] != null)
-{
-            <div class="alert alert-success" role="alert">
-        @TempData["MensagemSucesso"]
-            </div>  
-}
-
-@if (TempData["MensagemErro"] != null)
-{
-                    <div class="alert alert-danger" role="alert">
-        @TempData["MensagemErro"]
-                    </div>  
-}
-
 <head>
     <link href="@Url.Content("/css/style.css")" rel="stylesheet"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,9 +15,8 @@
     <link rel="preload" href="@Url.Content("/img/hero-banner.jpg")">
 </head>
 
-<main>
-    <article>
-
+<main>   
+    <article>        
       <!-- 
         - #HERO
       -->
@@ -46,6 +31,18 @@
                   <i class="fas fa-sign-in-alt"></i>
                   <strong>Bem-Vindo!</strong>
                   <span>Entre na sua conta</span>
+                        @if (TempData["MensagemErro"] != null)
+                        {
+                            <div class="alert alert-danger" role="alert">
+                                @TempData["MensagemErro"]
+                            </div>
+                        }
+                        @if (TempData["MensagemSucesso"] != null)
+                        {
+                            <div class="alert alert-success" role="alert">
+                                @TempData["MensagemSucesso"]
+                            </div>
+                        }
                   <form asp-controller="Login" asp-action="Entrar" method="post">
                       <div class="form">
                         <div class="form-row">

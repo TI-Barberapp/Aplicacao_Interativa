@@ -72,6 +72,7 @@ namespace Aplicacao_Interativa.Controllers
                         }
                     }
                 }
+                TempData["MensagemErro"] = "Usuário e/ou senha inválidos.";
                 return RedirectToAction("Index");
             }
             catch (Exception)
@@ -105,10 +106,11 @@ namespace Aplicacao_Interativa.Controllers
                         mensagem.Append($"<p>Clique <a href='{urlConfirmacao}'>aqui</a> para redefinir sua senha.</p>");
 
                         _email.Enviar(usuario.Email, "Redefinir Senha", mensagem.ToString());
+                        TempData["MensagemSucesso"] = "O e-mail foi enviado com sucesso.";
                         return RedirectToAction("Index", "Login");
                     }                     
                 }
-
+                TempData["MensagemErro"] = "Não foi possível encontrar o e-mail.";
                 return RedirectToAction("EsqueciSenha", "Login");
             }
             catch (Exception)
@@ -147,10 +149,11 @@ namespace Aplicacao_Interativa.Controllers
                 if (usuario != null)
                 {
                     _usuarioRepositorio.SalvarNovaSenha(usuario, redefinirSenhaModel.NovaSenha);
-
+                    TempData["MensagemSucesso"] = "A senha foi redefinida com sucesso.";
                     return RedirectToAction("Index", "Login");
                 }
 
+                TempData["MensagemErro"] = "Não foi possível redefinir a senha.";
                 return RedirectToAction("RedefinirSenha", "Login");
 
             }

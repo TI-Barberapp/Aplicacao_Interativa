@@ -13,6 +13,8 @@ namespace Aplicacao_Interativa.Helper
         UsuarioModel RecuperarPeloId(int id);
 
         UsuarioModel SalvarNovaSenha(UsuarioModel usuario, string novaSenha);
+
+        string BuscarEmailBarbeiroEspecifico(string nome);
     }
 
 }

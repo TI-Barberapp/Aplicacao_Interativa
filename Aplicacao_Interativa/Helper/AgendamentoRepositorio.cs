@@ -44,5 +44,33 @@ namespace Aplicacao_Interativa.Helper
             return horariosDisponiveis;
         }
 
+        public string BuscarServicoPeloId(int id)
+        {
+            List<ServicoModel> listaServicos = BuscarServicos();
+
+            foreach (ServicoModel servicos in listaServicos)
+            {
+                if (servicos.Id == id)
+                {
+                    return servicos.Nome;
+                }
+            }
+            return "serviço";
+        }
+
+        public string BuscarHorarioPeloId(int id)
+        {
+            List<HorarioModel> listaHorarios = BuscarHorarios();
+
+            foreach (HorarioModel horario in listaHorarios)
+            {
+                if(horario.Id == id)
+                {
+                    return horario.Horario;
+                }
+            }
+
+            return "00:00";
+        }
     }
 }

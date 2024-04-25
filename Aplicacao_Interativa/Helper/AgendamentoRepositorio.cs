@@ -20,6 +20,28 @@ namespace Aplicacao_Interativa.Helper
 
             return agendamento;
         }
+        public List<AgendamentoModel> BuscarAgendamento()
+        {
+            return _bancoContext.Agendamentos.ToList();
+        }
+        //Esse é um método para busca personalizada de agendamentos, baseado no barbeiro que está logado no sistema
+        public List<AgendamentoModel> BuscarAgendamentosPeloNome(string nomeBarbeiro)
+        {
+            //Essa é a lista que reune todos os agendamentos
+            List<AgendamentoModel> listaAgendamentos = BuscarAgendamento();
+            List<AgendamentoModel> listaOrdenada = listaAgendamentos.OrderBy(a => a.HorarioId).ToList();
+            //Essa é a lista com os agendamentos individuais, do barbeiro logado
+            List<AgendamentoModel> listaDeAgendamentosPorBarbeiro = new List<AgendamentoModel>();
+
+            foreach(AgendamentoModel agendamentos in listaOrdenada)
+            {
+                if (agendamentos.Barbeiro == nomeBarbeiro && agendamentos.DataAgendamento >= DateTime.Today)
+                {  
+                    listaDeAgendamentosPorBarbeiro.Add(agendamentos);
+                }
+            }
+            return listaDeAgendamentosPorBarbeiro;
+        }
         public List<ServicoModel> BuscarServicos()
         {
             return _bancoContext.Servicos.ToList();
@@ -43,7 +65,6 @@ namespace Aplicacao_Interativa.Helper
             }
             return horariosDisponiveis;
         }
-
         public string BuscarServicoPeloId(int id)
         {
             List<ServicoModel> listaServicos = BuscarServicos();
@@ -71,6 +92,6 @@ namespace Aplicacao_Interativa.Helper
             }
 
             return "00:00";
-        }
+        }       
     }
 }

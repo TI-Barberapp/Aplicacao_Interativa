@@ -15,6 +15,7 @@ namespace Aplicacao_Interativa.Helper
         UsuarioModel SalvarNovaSenha(UsuarioModel usuario, string novaSenha);
 
         string BuscarEmailBarbeiroEspecifico(string nome);
+        string BuscarNomeUsuarioPeloId(int id);
     }
 
 }

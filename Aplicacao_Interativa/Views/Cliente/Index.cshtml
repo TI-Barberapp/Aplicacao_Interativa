@@ -17,7 +17,6 @@
 
 <head>
     <link href="@Url.Content("/css/IndexClienteCss.css")" rel="stylesheet" />
-    <link href="@Url.Content("/css/style.css")" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Rubik:wght@300,400;700&display=swap"
@@ -329,6 +328,36 @@
 
                 </div>
 
+            </div>
+        </section>
+
+        <section class="section" id="agendamentos">
+            <div class="container">
+                <h2 class="h2 section-title text-center">Avaliações</h2>
+
+                @foreach (AvaliacaoModel avaliacao in ViewBag.Avaliacoes)
+                {
+                    <div class="card mt-3">
+                        <div class="card-body">
+                            <h6 class="card-title">Serviço realizado por @avaliacao.Agendamento?.Barbeiro</h6>
+                            <div class="avaliacao-estrelas">
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    if (i <= avaliacao.Avaliacao)
+                                    {
+                                        <i class="star-fill bi bi-star-fill"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="star bi bi-star"></i>
+                                    }
+                                }
+                            </div>
+                            <p class="card-text">@avaliacao.Comentario</p>
+                            <p class="card-text text-end">Cliente: @avaliacao.Agendamento?.Usuario?.Nome</p>
+                        </div>
+                    </div>
+                }
             </div>
         </section>
 

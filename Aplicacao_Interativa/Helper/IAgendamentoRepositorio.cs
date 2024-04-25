@@ -5,6 +5,8 @@ namespace Aplicacao_Interativa.Helper
     public interface IAgendamentoRepositorio
     {
         AgendamentoModel Adicionar(AgendamentoModel agendamentoModel);
+        List<AgendamentoModel> BuscarAgendamento();
+        List<AgendamentoModel> BuscarAgendamentosPeloNome(string nomeBarbeiro);
         List<ServicoModel> BuscarServicos();
         List<HorarioModel> BuscarHorarios();
         AgendamentoModel BuscarPorData(DateTime data, int horarioId);

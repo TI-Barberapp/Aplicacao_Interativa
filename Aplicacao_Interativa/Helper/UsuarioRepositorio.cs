@@ -63,5 +63,18 @@ namespace Aplicacao_Interativa.Helper
             }
             return "agendamentobarber@outlook.com";
         }
+        public string BuscarNomeUsuarioPeloId(int id)
+        {
+            List<UsuarioModel> listaUsuarios = BuscarTodos();
+
+            foreach (UsuarioModel usuario in listaUsuarios)
+            {
+                if(usuario.Id == id)
+                {
+                    return usuario.Nome;
+                }
+            }
+            return "None";
+        }
     }
 }

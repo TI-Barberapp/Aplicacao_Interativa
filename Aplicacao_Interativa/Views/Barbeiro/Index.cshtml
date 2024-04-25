@@ -1,8 +1,118 @@
-﻿@{
-    ViewData["Title"] = "Página Inicial";
+﻿@model AgendamentoModel
+@{
+    ViewData["Title"] = "Realizar Agendamento";
+}
+@if (TempData["MensagemSucesso"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["MensagemSucesso"]
+    </div>
+}
+@if (TempData["MensagemErro"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["MensagemErro"]
+    </div>
 }
 
-<div class="text-center">
-    <h1 class="display-4">Bem Vindo!</h1>
-    <p>Gerencie os agendamentos da sua barbearia.</p>
-</div>
+<head>
+    <link href="@Url.Content("/css/IndexClienteCss.css")" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Rubik:wght@300,400;700&display=swap"
+          rel="stylesheet">
+    <link href="@Url.Content("/css/flaticon.min.css")" rel="stylesheet" />
+    <link rel="preload" href="@Url.Content("/img/hero-banner.jpg")">
+</head>
+
+
+
+<main>
+    <article>
+
+        <!--
+          - #HERO
+        -->
+
+        <section class="section hero has-before has-bg-image" id="home" aria-label="home"
+                 style="background-image: url('/img/hero-banner.jpg')">
+            <div class="container">
+
+                <h1 class="h1 hero-title2">Seu visual </h1>
+                <h1 class="h1 hero-title">merece o melhor!</h1>
+
+                <p class="hero-text">
+                    Barber Reach é um lugar para o homem moderno cuidar de si mesmo. Venha, relaxe e aproveite nosso ambiente
+                </p>
+
+                <a href="#pricing" class="btn has-before">
+                    <span class="span">Explore Nossos Planos e Kits</span>
+
+                    <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+                </a>
+
+            </div>
+        </section>       
+
+        <section class="section" id="agendamentos">
+            <div class="container">
+                <h2 class="h2 section-title text-center">Agendamentos</h2>
+
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Nome do Cliente</th>
+                                <th>Serviço</th>
+                                <th>Data</th>
+                                <th>Horário</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (AgendamentoViewModel agendamento in ViewBag.Agendamentos)
+                            {
+                                <tr>
+                                    <td>@agendamento.NomeUsuario</td>
+                                    <td>@agendamento.NomeServico</td>
+                                    <td>@agendamento.DataAgendamento.ToShortDateString()</td>
+                                    <td>@agendamento.Horario</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+    </article>
+</main>
+
+
+
+
+
+<!--
+  - #FOOTER
+-->
+<!--
+  - #BACK TO TOP
+-->
+
+<a href="#top" class="back-top-btn" aria-label="back to top" data-back-top-btn>
+    <ion-icon name="chevron-up" aria-hidden="true"></ion-icon>
+</a>
+
+
+
+
+
+<!--
+  - js link
+-->
+<script src="/js/home.js" defer></script>
+
+<!--
+  - ionicon link
+-->
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>

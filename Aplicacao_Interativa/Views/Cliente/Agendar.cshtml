@@ -2,48 +2,64 @@
 @{
     ViewData["Title"] = "Agendamento";
 }
-@if (TempData["MensagemErro"] != null)
-{
-                                    <div class="alert alert-danger" role="alert">
-        @TempData["MensagemErro"]
-                                    </div>  
-}
+<head>
+    <link href="@Url.Content("/css/agendar.css")" rel="stylesheet" />
+</head>
 
-<h1 class="text-center">Realizar Novo Atendimento</h1>
-<form asp-controller="Cliente" asp-action="Agendar" method="post">
-    <input type="hidden" asp-for="ServicoId" value="@ViewBag.ServicoId" />
-    <div class="card">
-        <div class="card-body">            
-            <div class="form-group">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div id="calendario" class="d-flex flex-wrap"></div>
+<div class="agendar">
+    @if (TempData["MensagemErro"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["MensagemErro"]
+        </div>
+    }
+    <form asp-controller="Cliente" asp-action="Agendar" method="post">
+        <input type="hidden" asp-for="ServicoId" value="@ViewBag.ServicoId" />
+        <div class="card">
+            <div class="card-body">
+                <div class="form-group">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div id="calendario" class="d-flex flex-wrap"></div>
+                    </div>
+                    <input type="hidden" asp-for="DataAgendamento" id="DataAgendamento">
                 </div>
-                <input type="hidden" asp-for="DataAgendamento" id="DataAgendamento">
-            </div>  
-            <div class="form-group">
-                <label for="horario">Horário</label>
-                <select class="form-select" asp-for="HorarioId">
-                    @foreach (var horario in ViewBag.Horarios)
-                    {
-                        <option value="@horario.Id">@horario.Horario</option>
-                    }
-                </select>
-            </div>
-            <div class="mt-3">
-                <label for="barbeiro">Selecione um barbeiro</label>
-                <select class="form-select" asp-for="Barbeiro">
+                <div class="form-group">
+                    <label for="horario">Horário</label>
+                    <select class="form-select" asp-for="HorarioId">
+                        @foreach (var horario in ViewBag.Horarios)
+                        {
+                            <option value="@horario.Id">@horario.Horario</option>
+                        }
+                    </select>
+                </div>
+                <div class="mt-3">
+                    <label for="barbeiro">Selecione um barbeiro</label>
+                    <select class="form-select" asp-for="Barbeiro">
                         @foreach (var item in ViewBag.Barbeiros)
                         {
                             <option value="@item.Text">@item.Text</option>
                         }
-                </select>
-            </div>          
-            <div class="text-center">
-                <button id="btnEnviar" class="btn btn-primary mt-3 w-100">Enviar</button>
-                <a class="btn btn-secondary btn-block w-100 my-1" role="button" asp-controller="Cliente" asp-action="Index">Voltar</a>
+                    </select>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                    <div>
+                        <button id="btnEnviar" class="btn">Enviar</button>
+                    </div>
+                    <div>
+                        <a class="btn" role="button" asp-controller="Cliente" asp-action="Index">Voltar</a>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</form>
+    </form>
+</div>
+
+<!--
+  - ionicon link
+-->
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+
+
 
 

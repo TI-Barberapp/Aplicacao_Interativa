@@ -72,7 +72,7 @@ namespace Aplicacao_Interativa.Controllers
 
                     if (usuarioId != null)
                     {
-                        var agendamentoExistente = _agendamentoRepositorio.BuscarPorData(agendamento.DataAgendamento, agendamento.HorarioId);
+                        var agendamentoExistente = _agendamentoRepositorio.BuscarPorData(agendamento);
 
                         if (agendamentoExistente == null)
                         { 
@@ -103,12 +103,12 @@ namespace Aplicacao_Interativa.Controllers
                     }
                 }
                 TempData["MensagemErro"] = $"Não foi possível realizar o agendamento.";
-                return RedirectToAction("Index", "Cliente");
+                return RedirectToAction("Agendar", "Cliente");
             }
             catch (Exception erro)
             {
                 TempData["MensagemErro"] = $"Não foi possível realizar o agendamento. Detalhes: {erro.Message}";
-                return RedirectToAction("Index", "Cliente");
+                return RedirectToAction("Agendar", "Cliente");
             }
         }
         [HttpPost]

@@ -1,29 +1,31 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿const navbar = document.querySelector("[data-navbar]");
+const navToggler = document.querySelector("[data-nav-toggler]");
+const navLinks = document.querySelectorAll("[data-nav-link]");
 
-// Write your JavaScript code.
+const toggleNavbar = () => navbar.classList.toggle("active");
 
-$(document).ready(function () {
-	setTimeout(function () {
-		$(".alert").fadeOut("slow", function () {
-			$(this).alert('close');
-		});
-	}, 3000);
-});
+addEventOnElem(navToggler, "click", toggleNavbar);
 
-function validarFormulario() {
-    var senha = document.getElementById("NovaSenha").value;
-    var confirmarSenha = document.getElementById("ConfirmarSenha").value;
-    var erroSenha = document.getElementById("erroSenha");
+const closeNavbar = () => navbar.classList.remove("active");
 
-    if (senha !== confirmarSenha) {
-        erroSenha.textContent = "As senhas não coincidem.";
-        return false;
+addEventOnElem(navLinks, "click", closeNavbar);
+
+
+const header = document.querySelector("[data-header]");
+const backTopBtn = document.querySelector("[data-back-top-btn]");
+
+const headerActive = function () {
+    if (window.scrollY > 100) {
+        header.classList.add("active");
+        backTopBtn.classList.add("active");
     } else {
-        erroSenha.textContent = "";
-        return true;
+        header.classList.remove("active");
+        backTopBtn.classList.remove("active");
     }
 }
+
+addEventOnElem(window, "scroll", headerActive);
+
 //Organizar as datas de agendamento em forma de botões
 document.addEventListener('DOMContentLoaded', function () {
     var calendario = document.getElementById('calendario');
@@ -43,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function () {
         botaoDia.innerHTML = '<div class="nome-dia">' + diaSemana + '</div><div class="data">' + dataFormatada + '</div>';
         botaoDia.dataset.data = dataFormatada;
         botaoDia.type = 'button';
-        botaoDia.classList.add('button','btn-dia', 'm-1');
+        botaoDia.classList.add('btn', 'btn-outline-primary', 'btn-dia', 'm-1');
         if (data.getDay() === 0) {
             botaoDia.classList.add('domingo');
             botaoDia.disabled = true;
@@ -66,22 +68,3 @@ document.addEventListener('DOMContentLoaded', function () {
         calendario.appendChild(botaoDia);
     }
 });
-
-// Avaliação em estrelas
-document.addEventListener('DOMContentLoaded', function () {
-    const stars = document.querySelectorAll('.avaliacao .star-icon');
-
-    stars.forEach(star => {
-        star.addEventListener('click', function () {
-            const value = this.getAttribute('data-avaliacao');
-            document.getElementById('avaliacaoEstrelas').value = value;
-
-            stars.forEach(s => {
-                s.classList.remove('ativo');
-            });
-
-            this.classList.add('ativo');
-        });
-    });
-});
-    

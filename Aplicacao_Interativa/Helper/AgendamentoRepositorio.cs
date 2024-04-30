@@ -50,9 +50,12 @@ namespace Aplicacao_Interativa.Helper
         {
             return _bancoContext.Horarios.ToList();
         }
-        public AgendamentoModel BuscarPorData(DateTime data, int horarioId)
+        public AgendamentoModel BuscarPorData(AgendamentoModel agendamento)
         {
-            return _bancoContext.Agendamentos.FirstOrDefault(x => x.DataAgendamento == data && x.HorarioId == horarioId);
+            return _bancoContext.Agendamentos.FirstOrDefault(x =>
+                x.DataAgendamento == agendamento.DataAgendamento &&
+                x.HorarioId == agendamento.HorarioId &&
+                x.Barbeiro == agendamento.Barbeiro);
         }
         public List<HorarioModel> BuscarHorariosDisponiveis(DateTime data)
         {

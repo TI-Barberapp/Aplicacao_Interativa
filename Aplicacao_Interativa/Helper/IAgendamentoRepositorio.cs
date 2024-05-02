@@ -12,7 +12,7 @@ namespace Aplicacao_Interativa.Helper
         AgendamentoModel BuscarPorData(AgendamentoModel agendamento);
         List<HorarioModel> BuscarHorariosDisponiveis(DateTime data);
         string BuscarServicoPeloId(int id);
-
         string BuscarHorarioPeloId(int id);
+        List<AgendamentoModel> BuscarAgendamentosPeloId(int id);
     }
 }

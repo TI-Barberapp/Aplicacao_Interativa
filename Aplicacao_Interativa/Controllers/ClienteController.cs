@@ -61,6 +61,33 @@ namespace Aplicacao_Interativa.Controllers
 
             return View(agendamento);
         }
+
+        public IActionResult Perfil()
+        {
+            var usuario = _sessao.BuscarSessaoUsuario();
+            List<AgendamentoModel> agendamentos = _agendamentoRepositorio.BuscarAgendamentosPeloId(usuario.Id);
+
+            List<AgendamentoViewModel> viewModel = new List<AgendamentoViewModel>();
+
+            foreach (var agendamento in agendamentos)
+            {
+                var nomeSevico = _agendamentoRepositorio.BuscarServicoPeloId(agendamento.ServicoId);
+                var horario = _agendamentoRepositorio.BuscarHorarioPeloId(agendamento.HorarioId);
+
+                viewModel.Add(new AgendamentoViewModel
+                {
+                    NomeBarbeiro = agendamento.Barbeiro,
+                    NomeServico = nomeSevico,
+                    DataAgendamento = agendamento.DataAgendamento,
+                    Horario = horario
+                });
+            }
+
+            ViewBag.AgendamentosCliente = viewModel;
+
+            return View(usuario);
+        }
+
         [HttpPost]
         public IActionResult Agendar(AgendamentoModel agendamento)
         {
@@ -126,6 +153,45 @@ namespace Aplicacao_Interativa.Controllers
             }catch (Exception)
             {
                 return RedirectToAction("Avaliar", "Cliente");
+            }
+        }
+        
+        [HttpPost]
+        public IActionResult Alterar(UsuarioModel usuario)
+        {
+            try
+            {
+                var emailUsuario = _sessao.BuscarSessaoUsuario().Email;
+
+                if (ModelState.IsValid)
+                {
+                    if (emailUsuario == usuario.Email)
+                    {
+                        _usuarioRepositorio.Atualizar(usuario);
+
+                        TempData["MensagemSucesso"] = "Dados alterados com sucesso.";
+                        return View("Perfil", usuario);
+                    }
+
+                    var emailExistente = _usuarioRepositorio.BuscarPorLogin(usuario.Email);
+                    if (emailExistente == null)
+                    {
+                        _usuarioRepositorio.Atualizar(usuario);
+
+                        TempData["MensagemSucesso"] = "Dados alterados com sucesso.";
+                        return View("Perfil", usuario);
+                    }
+
+                    TempData["MensagemErro"] = $"Esse email já está sendo utilizado.";
+                    return RedirectToAction("Perfil", "Cliente");
+                }
+                TempData["MensagemErro"] = $"Não foi possível atualizar os dados.";
+                return RedirectToAction("Perfil", "Cliente");
+            }
+            catch (Exception erro)
+            {
+                TempData["MensagemErro"] = $"Não foi possível atualizar os dados. Detalhes: {erro.Message}";
+                return RedirectToAction("Perfil", "Cliente");
             }
         }
     }

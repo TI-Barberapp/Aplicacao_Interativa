@@ -2,42 +2,58 @@
 @{
     ViewData["Title"] = "Avaliação";
 }
-@if (TempData["MensagemSucesso"] != null)
-{
-                            <div class="alert alert-success" role="alert">
-        @TempData["MensagemSucesso"]
-                            </div>  
-}
-@if (TempData["MensagemErro"] != null)
-{
-                                        <div class="alert alert-danger" role="alert">
-        @TempData["MensagemErro"]
-                                        </div>  
-}
 
-<h1 class="text-center">Realizar Avalição do Serviço</h1>
-<form asp-controller="Cliente" asp-action="Avaliar" method="post">
-    <input type="hidden" asp-for="AgendamentoId"/>
-    <div class="card">
-        <div class="card-body">   
-            <div class="form-group text-center">
-                <label><h6>Faça sua avaliação</h6></label>
-                <ul class="avaliacao justify-content-center">
-                  <li class="star-icon ativo" data-avaliacao="1"></li>
-                  <li class="star-icon" data-avaliacao="2"></li>
-                  <li class="star-icon" data-avaliacao="3"></li>
-                  <li class="star-icon" data-avaliacao="4"></li>
-                  <li class="star-icon" data-avaliacao="5"></li>
-                </ul>
-                <input type="hidden" id="avaliacaoEstrelas" name="Avaliacao" value="1" />
-            </div>
-            <div class="form-group">
-                <label><h6>Comentário sobre o Serviço</h6></label>
-                <input type="textarea" asp-for="Comentario" required class="form-control" placeholder="Digite um comentário sobre o serviço prestado"/> 
-            </div>
-            <div class="text-center">
-                <button id="btnEnviar" class="btn btn-primary mt-3 w-100">Enviar</button>
+<head>
+    <link href="@Url.Content("/css/avaliar.css")" rel="stylesheet" />
+</head>
+
+
+<div class="avalia">
+    @if (TempData["MensagemSucesso"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData["MensagemSucesso"]
+        </div>
+    }
+    @if (TempData["MensagemErro"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["MensagemErro"]
+        </div>
+    }
+    <form asp-controller="Cliente" asp-action="Avaliar" method="post">
+        <input type="hidden" asp-for="AgendamentoId" />
+        <div class="card">
+            <div class="card-body">
+                <div class="form-group text-center">
+                    <label>Faça sua avaliação</label>
+                    <ul class="avaliacao justify-content-center">
+                        <li class="star-icon ativo" data-avaliacao="1"></li>
+                        <li class="star-icon" data-avaliacao="2"></li>
+                        <li class="star-icon" data-avaliacao="3"></li>
+                        <li class="star-icon" data-avaliacao="4"></li>
+                        <li class="star-icon" data-avaliacao="5"></li>
+                    </ul>
+                    <input type="hidden" id="avaliacaoEstrelas" name="Avaliacao" value="1" />
+                </div>
+                <div class="form-group">
+                    <label>Comentário sobre o Serviço</label>
+                    <input type="textarea" asp-for="Comentario" required class="form-control" placeholder="Digite um comentário sobre o serviço prestado" />
+                </div>
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                    <div>
+                        <button id="btnEnviar" class="btn btn-login">Enviar</button>
+                    </div>
+                    <div>
+                        <a class="btn btn-secundary" role="button" asp-controller="Cliente" asp-action="Index">Cancelar</a>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</form>
+    </form>
+</div>
+
+<!--
+  - ionicon link
+-->
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>

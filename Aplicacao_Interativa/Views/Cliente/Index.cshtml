@@ -2,18 +2,6 @@
 @{
     ViewData["Title"] = "Realizar Agendamento";
 }
-@if (TempData["MensagemSucesso"] != null)
-{
-    <div class="alert alert-success" role="alert">
-        @TempData["MensagemSucesso"]
-    </div>  
-}
-@if (TempData["MensagemErro"] != null)
-{
-    <div class="alert alert-danger" role="alert">
-        @TempData["MensagemErro"]
-    </div>  
-}
 
 <head>
     <link href="@Url.Content("/css/IndexClienteCss.css")" rel="stylesheet" />
@@ -331,33 +319,40 @@
             </div>
         </section>
 
-        <section class="section" id="agendamentos">
+        <!--
+          - #AVALIÇÃO
+        -->
+
+        <section class="section pb-0" id="agendamentos">
             <div class="container">
                 <h2 class="h2 section-title text-center">Avaliações</h2>
-
-                @foreach (AvaliacaoModel avaliacao in ViewBag.Avaliacoes)
-                {
-                    <div class="card mt-3">
-                        <div class="card-body">
-                            <h6 class="card-title">Serviço realizado por @avaliacao.Agendamento?.Barbeiro</h6>
-                            <div class="avaliacao-estrelas">
-                                @for (int i = 1; i <= 5; i++)
-                                {
-                                    if (i <= avaliacao.Avaliacao)
-                                    {
-                                        <i class="star-fill bi bi-star-fill"></i>
-                                    }
-                                    else
-                                    {
-                                        <i class="star bi bi-star"></i>
-                                    }
-                                }
-                            </div>
-                            <p class="card-text">@avaliacao.Comentario</p>
-                            <p class="card-text text-end">Cliente: @avaliacao.Agendamento?.Usuario?.Nome</p>
-                        </div>
-                    </div>
-                }
+                <div class="pricing-tab-container">
+                    <ul class="tab-filter">
+                        @foreach (AvaliacaoModel avaliacao in ViewBag.Avaliacoes)
+                        {
+                            <li data-filter="Acabamentos">
+                                <div class="avaliacao-card">
+                                    <h5 class="card-title">Serviço realizado por @avaliacao.Agendamento?.Barbeiro</h5>
+                                    <div class="avaliacao-estrelas">
+                                        @for (int i = 1; i <= 5; i++)
+                                        {
+                                            if (i <= avaliacao.Avaliacao)
+                                            {
+                                                <i class="star-fill bi bi-star-fill"></i>
+                                            }
+                                            else
+                                            {
+                                                <i class="star bi bi-star"></i>
+                                            }
+                                        }
+                                    </div>
+                                    <p class="card-text">@avaliacao.Comentario</p>
+                                    <p class="text-end">Cliente: @avaliacao.Agendamento?.Usuario?.Nome</p>
+                                </div>
+                            </li>
+                        }
+                    </ul>                    
+                </div>                
             </div>
         </section>
 

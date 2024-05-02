@@ -67,17 +67,3 @@ body {
 .star-icon:hover ~ .star-icon::before{
   content: "\2606";
 }
-
-/*Exibir estrela index.cshtml*/
-.star-fill {
-    list-style-type: none;
-    border: 1px solid #fff;
-    color: #ffe500;
-    font-size: 30px;
-}
-.star {
-    list-style-type: none;
-    border: 1px solid #fff;
-    color: #ffe500;
-    font-size: 30px;
-}

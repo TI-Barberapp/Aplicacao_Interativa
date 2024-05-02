@@ -119,15 +119,12 @@ namespace Aplicacao_Interativa.Controllers
                 if (ModelState.IsValid)
                 {
                     avaliacaoModel = _avalicaoRepositorio.Avaliar(avaliacaoModel);
-                    TempData["MensagemSucesso"] = "A avaliação foi enviada com sucesso.";
                     return RedirectToAction("Index", "Cliente");
                 }
-                TempData["MensagemErro"] = $"Não foi possível enviar o formulário de avalição.";
                 return RedirectToAction("Avaliar", "Cliente"); 
 
-            }catch (Exception erro)
+            }catch (Exception)
             {
-                TempData["MensagemErro"] = $"Não foi possível realizar a avaliação. Detalhes: {erro.Message}";
                 return RedirectToAction("Avaliar", "Cliente");
             }
         }

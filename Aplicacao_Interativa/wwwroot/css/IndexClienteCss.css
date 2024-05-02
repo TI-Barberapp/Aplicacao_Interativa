@@ -614,11 +614,63 @@ body {
         font-weight: var(--fw-500);
     }
 
-.button-pricing {
-    color: var(--indian-yellow);
-    font-family: var(--ff-oswald);
-    font-size: var(--fs-18);
+    .button-pricing {
+        color: var(--indian-yellow);
+        font-family: var(--ff-oswald);
+        font-size: var(--fs-18);
+    }
+
+/*-----------------------------------*\
+  #AVALIACAO
+\*-----------------------------------*/
+
+.avaliacao-card {
+    background-color: var(--indian-yellow_10);
+    padding: 20px 25px;
+    border-radius: var(--radius-5);
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
+
+    .avaliacao-card .card-title {
+        font-size: 15px;
+        font-family: var(--ff-oswald);
+        color: black;
+        margin-bottom: 0; /* Remove a margem inferior padrão do título */
+    }
+
+.avaliacao-estrelas {
+    margin-top: auto; /* Move as estrelas para a parte inferior do card-title */
+    display: flex;
+    gap: 5px;
+}
+
+    .avaliacao-estrelas .star {
+        font-size: 20px;
+        color: #ccc;
+    }
+
+    .avaliacao-estrelas .star-fill {
+        font-size: 20px;
+        color: gold;
+    }
+
+.avaliacao-card .card-text {
+    font-size: var(--fs-18);
+    font-family: var(--ff-oswald);
+    color: black;
+}
+
+.avaliacao-card .text-end {
+    font-size: 15px;
+    font-family: var(--ff-oswald);
+    color: black;
+}
+
+
 /*-----------------------------------*\
   #GALLERY
 \*-----------------------------------*/

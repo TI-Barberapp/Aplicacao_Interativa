@@ -20,6 +20,24 @@ namespace Aplicacao_Interativa.Helper
 
             return usuario;
         }
+
+        public UsuarioModel Atualizar(UsuarioModel usuario)
+        {
+            UsuarioModel usuarioDB = RecuperarPeloId(usuario.Id);
+
+            if (usuarioDB == null) throw new Exception("Houve um problema na atualização do perfil.");
+
+            usuarioDB.Nome = usuario.Nome;
+            usuarioDB.Email = usuario.Email;
+            usuarioDB.Celular = usuario.Celular;
+
+            _bancoContext.Usuarios.Update(usuarioDB);
+            _bancoContext.SaveChanges();
+
+            return usuarioDB;
+
+        }
+
         public List<UsuarioModel> BuscarTodos()
         {
             return _bancoContext.Usuarios.ToList();

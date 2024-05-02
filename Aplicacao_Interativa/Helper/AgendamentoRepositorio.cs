@@ -52,10 +52,7 @@ namespace Aplicacao_Interativa.Helper
         }
         public AgendamentoModel BuscarPorData(AgendamentoModel agendamento)
         {
-            return _bancoContext.Agendamentos.FirstOrDefault(x =>
-                x.DataAgendamento == agendamento.DataAgendamento &&
-                x.HorarioId == agendamento.HorarioId &&
-                x.Barbeiro == agendamento.Barbeiro);
+            return _bancoContext.Agendamentos.FirstOrDefault(x =>x.DataAgendamento == agendamento.DataAgendamento &&x.HorarioId == agendamento.HorarioId &&x.Barbeiro == agendamento.Barbeiro);
         }
         public List<HorarioModel> BuscarHorariosDisponiveis(DateTime data)
         {
@@ -95,6 +92,24 @@ namespace Aplicacao_Interativa.Helper
             }
 
             return "00:00";
-        }       
+        }
+
+        public List<AgendamentoModel> BuscarAgendamentosPeloId(int id)
+        {
+            //Essa é a lista que reune todos os agendamentos
+            List<AgendamentoModel> listaAgendamentos = BuscarAgendamento();
+            List<AgendamentoModel> listaOrdenada = listaAgendamentos.OrderBy(a => a.DataAgendamento).ToList();
+            //Essa é a lista com os agendamentos individuais, do barbeiro logado
+            List<AgendamentoModel> listaDeAgendamentosPorBarbeiro = new List<AgendamentoModel>();
+
+            foreach (AgendamentoModel agendamentos in listaOrdenada)
+            {
+                if (agendamentos.usuarioID == id)
+                {
+                    listaDeAgendamentosPorBarbeiro.Add(agendamentos);
+                }
+            }
+            return listaDeAgendamentosPorBarbeiro;
+        }
     }
 }

@@ -1,0 +1,140 @@
+﻿@model UsuarioModel
+@{
+    ViewData["Title"] = "Perfil";
+}
+
+<head>
+    <link href="@Url.Content("/css/avaliar.css")" rel="stylesheet" />
+</head>
+
+
+<div class="avalia">
+    @if (TempData["MensagemSucesso"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData["MensagemSucesso"]
+        </div>
+    }
+    @if (TempData["MensagemErro"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["MensagemErro"]
+        </div>
+    }
+    <h1 class="text-center">Olá, @Model.Nome</h1>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex flex-column align-items-center">
+                <!-- Adiciona a classe 'flex-column' para empilhar os itens verticalmente -->
+                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#modalAtualizarPerfil">
+                    Atualizar Perfil
+                </button>
+                <button type="button" class="btn mt-3" data-bs-toggle="modal" data-bs-target="#modalExibirHistorico">
+                    Histórico Agendamentos
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Atualizar Perfil -->
+    <div class="modal fade" id="modalAtualizarPerfil" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="exampleModalLabel">Atualizar Perfil</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <form asp-controller="Cliente" asp-action="Alterar" method="post">
+                        <input type="hidden" asp-for="Id" value="@Model.Id" />
+                        <div class="form-group">
+                            <label class="form-label">Nome</label>
+                            <input type="text" id="Nome" asp-for="Nome" required class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">E-mail</label>
+                            <input type="email" id="Email" asp-for="Email" required class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Celular</label>
+                            <input type="text" id="Celular" asp-for="Celular" required class="form-control" />
+                        </div>
+
+                        <input type="hidden" asp-for="Perfil" />
+
+                        <input type="hidden" asp-for="Senha" />
+
+                        <div class="modal-footer d-flex justify-content-between align-items-center mt-3">
+                            <div>
+                                <button id="btnEnviar" class="btn btn-login">Enviar</button>
+                            </div>
+                            <div>
+                                <a class="btn btn-secundary" role="button" data-bs-dismiss="modal">Fechar</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Exibir Historico -->
+    <div class="modal fade" id="modalExibirHistorico" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="exampleModalLabel">Histórico Agendamentos</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Nome do Barbeiro</th>
+                                    <th>Serviço</th>
+                                    <th>Data</th>
+                                    <th>Horário</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (AgendamentoViewModel agendamento in ViewBag.AgendamentosCliente)
+                                {
+                                    <tr>
+                                        <td>@agendamento.NomeBarbeiro</td>
+                                        <td>@agendamento.NomeServico</td>
+                                        <td>@agendamento.DataAgendamento.ToShortDateString()</td>
+                                        <td>@agendamento.Horario</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+
+
+<!--
+  - ionicon link
+-->
+<script>
+    //Atualização dos dados após a página ser recarregada
+    window.onload = function () {
+        var nome = "@Model.Nome";
+        var email = "@Model.Email";
+        var celular = "@Model.Celular";
+
+        document.getElementById("Nome").value = nome;
+        document.getElementById("Email").value = email;
+        document.getElementById("Celular").value = celular;
+    };
+</script>
+
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>

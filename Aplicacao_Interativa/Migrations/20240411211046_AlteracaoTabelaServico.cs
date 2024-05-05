@@ -8,12 +8,7 @@ namespace Aplicacao_Interativa.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
-                name: "CaminhoImagem",
-                table: "Servicos",
-                type: "longtext",
-                nullable: true)
-                .Annotation("MySql:CharSet", "utf8mb4");
+           
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

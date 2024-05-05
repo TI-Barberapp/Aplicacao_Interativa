@@ -23,5 +23,13 @@ namespace Aplicacao_Interativa.Helper
 
             return strHexa.ToString();
         }
+
+        public static string CriptografarSenha(string senha)
+        {
+            string senhaCriptografada = GerarHash(senha);
+
+            return senhaCriptografada;
+
+        }
     }
 }

@@ -3,12 +3,12 @@
 <nav class="navbar container" data-navbar>
     <ul class="navbar-list">
 
+        
         @if (Model.Perfil == Aplicacao_Interativa.Enums.PerfilEnum.Cliente)
         {
             <li class="navbar-item">
                 <a href="/Cliente/Index" class="navbar-link" data-nav-link>Home</a>
             </li>
-
             <li class="navbar-item">
                 <a href="#services" class="navbar-link" data-nav-link>Serviços</a>
             </li>
@@ -19,6 +19,20 @@
 
             <li class="navbar-item">
                 <a href="#gallery" class="navbar-link" data-nav-link>Galeria</a>
+            </li>
+        }
+        else
+        {
+            <li class="navbar-item">
+                <a href="/Barbeiro/Index" class="navbar-link" data-nav-link>Home</a>
+            </li>
+
+            <li class="navbar-item">
+                <a href="#agendamentos" class="navbar-link" data-nav-link>Agendamentos</a>
+            </li>
+
+            <li class="navbar-item">
+                <a class="navbar-link" asp-controller="Cadastro" asp-action="Criar">Cadastrar</a>
             </li>
         }
         <li class="navbar-item">

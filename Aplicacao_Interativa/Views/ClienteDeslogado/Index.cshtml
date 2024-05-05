@@ -2,6 +2,7 @@
 @{
     Layout = "_LayoutDeslogado";
     ViewData["Title"] = "Barber Reach";
+    var caminhoImagem = "";
 }
 @if (TempData["MensagemSucesso"] != null)
 {
@@ -361,7 +362,28 @@
                                         }
                                     </div>
                                     <p class="card-text">@avaliacao.Comentario</p>
-                                    <p class="text-end">Cliente: @avaliacao.Agendamento?.Usuario?.Nome</p>
+
+                                    @if (ViewBag.Imagens == null)
+                                    {
+                                        caminhoImagem = "/img/site/default-profile-image.png";
+                                    }
+                                    else
+                                    {
+                                        @foreach (ImagemModel imagem in ViewBag.Imagens)
+                                        {
+                                            caminhoImagem = "/img/site/default-profile-image.png";
+                                            if (imagem.UsuarioId == avaliacao.Agendamento?.Usuario?.Id)
+                                            {
+                                                caminhoImagem = "/img/perfil/" + imagem.CaminhoImgPerfil;
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                    <div class="cliente-avaliacao d-flex align-items-center">
+                                        <img class="perfilimg me-2" src="@caminhoImagem" alt="Imagem Perfil" />
+                                        <p class="nome-cliente text-end mb-0">@avaliacao.Agendamento?.Usuario?.Nome</p>
+                                    </div>
                                 </div>
                             </li>
                         }

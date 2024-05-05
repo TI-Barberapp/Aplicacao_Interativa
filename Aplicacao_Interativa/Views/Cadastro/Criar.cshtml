@@ -1,7 +1,6 @@
 ﻿@using Aplicacao_Interativa.Enums
 @model UsuarioModel
 @{
-    Layout = "_LayoutDeslogado";
     ViewData["Title"] = "Cadastro";
 }
 
@@ -61,21 +60,34 @@
                       placeholder="Digite o Telefone">
                   </div>
 
+                  @if (Model.Perfil == Aplicacao_Interativa.Enums.PerfilEnum.Barbeiro)
+                  {
+                    <div class="form-row">
+                        <label class="form-label">Perfil</label>
+                        <select class="form-text" asp-for="Perfil">
+                            <option value="@PerfilEnum.Barbeiro">Barbeiro</option>
+                            <option value="@PerfilEnum.Cliente">Cliente</option>
+                        </select>
+                    </div>
+                  }
+                  else
+                  {
+                    <input type="hidden" asp-for="Perfil" value="@PerfilEnum.Cliente" />
+                  }
+
                   <div class="form-row">
                     <i class="fas fa-lock"></i>
                     <label class="form-label" for="register-password">Senha</label>
                     <input type="password" asp-for="Senha" required class="form-text" id="register-password"
                       placeholder="Digite a Senha">
-                  </div>
-
-                  <input type="hidden" asp-for="Perfil" value="@PerfilEnum.Cliente" />
+                  </div>                  
 
                   <div class="button-container">
                       <div class="form-row button-login d-flex justify-content-between">
                         <button type="submit" class="btn btn-login">Criar <i class="fas fa-arrow-right"></i></button>
                         <a class="btn btn-secondary" role="button" asp-controller="Login" asp-action="Index">Voltar</a>
                       </div>
-                  </div>
+                  </div>                                    
 
               </fieldset>
             </form>

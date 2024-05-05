@@ -3,10 +3,6 @@
     background-image: url('/img/hero-banner.jpg');
 }
 
-.btn:hover {
-    color: white;
-    background-color: var(--harvest-gold);
-}
 
     body::before {
         content: '';
@@ -69,6 +65,43 @@ label {
     content: "\2606";
 }
 
+.btn-perfil {
+    color: var(--white) !important;
+    background-color: var(--indian-yellow) !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    width: 300px !important;
+    padding: 10px 25px !important;
+    margin-top: 5px !important;
+    font-family: var(--ff-oswald) !important;
+    font-size: var(--fs-14) !important;
+    font-weight: var(--fw-600) !important;
+    text-transform: uppercase !important;
+    border-radius: var(--radius-5) !important;
+    overflow: hidden !important;
+}
+
+    .btn-perfil:hover, .btn:hover {
+        background: var(--indian-yellow) !important;
+        transform: translateY(-2px) !important;
+    }
+
+        .btn-perfil .fas.fa-arrow-right, .btn:hover .fas.fa-arrow-right {
+            color: #fff !important;
+            font-size: 12px !important;
+            line-height: 12px !important;
+            margin: 0 0 0 10px !important;
+        }
+
+
+
+.img-perfil {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
 
 
 

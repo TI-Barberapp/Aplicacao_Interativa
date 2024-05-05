@@ -37,6 +37,17 @@ namespace Aplicacao_Interativa.Helper
             return usuarioDB;
 
         }
+        public bool Apagar(UsuarioModel usuario)
+        {
+            UsuarioModel usuarioDB = RecuperarPeloId(usuario.Id);
+
+            if (usuarioDB == null) throw new Exception("Houve um problema na deleção do perfil.");
+
+            _bancoContext.Usuarios.Remove(usuarioDB);
+            _bancoContext.SaveChanges();
+
+            return true;
+        }
 
         public List<UsuarioModel> BuscarTodos()
         {
@@ -66,6 +77,14 @@ namespace Aplicacao_Interativa.Helper
             _bancoContext.SaveChanges();
 
             return usuario;
+        }
+
+        public string CriptografarSenha(UsuarioModel usuario, string senha)
+        {
+            usuario.Senha = senha;
+            usuario.SetGerarHash();
+
+            return usuario.Senha;
         }
 
         public string BuscarEmailBarbeiroEspecifico(string nome)

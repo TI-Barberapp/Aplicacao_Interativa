@@ -1,10 +1,12 @@
 ﻿@model UsuarioModel
 @{
     ViewData["Title"] = "Perfil";
+    var caminhoImagem = ViewBag.Imagem;
 }
 
 <head>
     <link href="@Url.Content("/css/avaliar.css")" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" />
 </head>
 
 
@@ -23,16 +25,28 @@
     }
     <h1 class="text-center">Olá, @Model.Nome</h1>
 
+    <div class="d-flex justify-content-center mb-2 align-items-center flex-column">
+        <img class="img-perfil" src="@caminhoImagem" alt="Imagem do perfil" />
+        <button type="button" data-bs-toggle="modal" data-bs-target="#modalImagemPerfil">
+            <i class="bi bi-pencil-square"></i>
+        </button>
+    </div>
+
     <div class="card">
         <div class="card-body">
             <div class="d-flex flex-column align-items-center">
-                <!-- Adiciona a classe 'flex-column' para empilhar os itens verticalmente -->
-                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#modalAtualizarPerfil">
+                <button type="button" class="btn-perfil" data-bs-toggle="modal" data-bs-target="#modalAtualizarPerfil">
                     Atualizar Perfil
                 </button>
-                <button type="button" class="btn mt-3" data-bs-toggle="modal" data-bs-target="#modalExibirHistorico">
-                    Histórico Agendamentos
-                </button>
+                @if(Model.Perfil == Aplicacao_Interativa.Enums.PerfilEnum.Cliente)
+                {
+                    <button type="button" class="btn-perfil" data-bs-toggle="modal" data-bs-target="#modalExibirHistorico">
+                        Histórico Agendamentos
+                    </button>
+                    <button type="button" class="btn-perfil" data-bs-toggle="modal" data-bs-target="#modalDeletarPerfil">
+                        Deletar Perfil
+                    </button>
+                }                               
             </div>
         </div>
     </div>
@@ -115,6 +129,54 @@
             </div>
         </div>
     </div>
+
+    <!--Modal Deletar o Perfil-->
+    <div class="modal fade" id="modalDeletarPerfil" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="exampleModalLabel">Deletar Perfil</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <h1 class="text-center mb-4">Tem Certeza que Deseja Deletar o Perfil?</h1>
+                    <form asp-action="Apagar" asp-controller="Cliente" method="post">
+                        <div class="form-group">
+                            <label class="form-label">Insira sua Senha</label>
+                            <input type="password" name="senha" id="senha" class="form-control mb-4" required>
+                        </div>
+                        <div class="d-flex flex-column align-items-center">
+                            <button type="submit" class="button btn-danger mb-3 w-50">Excluir</button>
+                        </div>
+                    </form>
+
+                    <div class="d-flex flex-column align-items-center">
+                        <a role="button" class="button btn-primary w-50 text-center" data-bs-dismiss="modal">Cancelar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Modal Atualizar Imagem Perfil-->
+    <div class="modal fade" id="modalImagemPerfil" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="exampleModalLabel">Alterar Imagem</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <form asp-action="Upload" asp-controller="Imagem" method="post" enctype="multipart/form-data">
+                        <label class="form-label">Escolha a imagem do Perfil</label>
+                        <input type="file" name="foto" />
+                        <button type="submit" class="btn mt-4">Enviar Imagem</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a class="btn btn mt-5" asp-action="Index" asp-controller="Cliente">Voltar</a>
 </div>
 
     

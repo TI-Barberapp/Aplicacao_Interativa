@@ -10,10 +10,12 @@ namespace Aplicacao_Interativa.Controllers
     public class CadastroController : Controller
     {
         private readonly IUsuarioRepositorio _usuarioRepositorio;
+        private readonly ISessao _sessao;
 
-        public CadastroController(IUsuarioRepositorio usuarioRepositorio)
+        public CadastroController(IUsuarioRepositorio usuarioRepositorio, ISessao sessao)
         {
             _usuarioRepositorio = usuarioRepositorio;
+            _sessao = sessao;
         }
 
         public IActionResult Index()
@@ -21,11 +23,24 @@ namespace Aplicacao_Interativa.Controllers
             List<UsuarioModel> usuarios = _usuarioRepositorio.BuscarTodos();
             
             return View(usuarios);
-        }        
+        }
 
         public IActionResult Criar()
         {
-            return View();
+            var usuarioModel = new UsuarioModel();
+
+            var usuarioLogado = _sessao.BuscarSessaoUsuario();
+
+            if (usuarioLogado != null && usuarioLogado.Perfil == Enums.PerfilEnum.Barbeiro)
+            {
+                usuarioModel.Perfil = usuarioLogado.Perfil;
+            }
+            else
+            {
+                usuarioModel.Perfil = Enums.PerfilEnum.Cliente;
+            }
+
+            return View(usuarioModel);
         }
 
         [HttpPost]

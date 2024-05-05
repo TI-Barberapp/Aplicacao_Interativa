@@ -162,7 +162,6 @@ body {
         background-color: hsl(0, 0%, 70%);
     }
 
-
 /*-----------------------------------*\
   #REUSED STYLE
 \*-----------------------------------*/
@@ -669,6 +668,14 @@ body {
     font-family: var(--ff-oswald);
     color: black;
 }
+
+.cliente-avaliacao .perfilimg {
+    border-radius: 50% !important;
+    width: 40px !important;
+    height: 40px !important;
+    object-fit: cover !important;
+}
+
 
 
 /*-----------------------------------*\

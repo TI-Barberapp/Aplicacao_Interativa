@@ -18,15 +18,16 @@ namespace Aplicacao_Interativa.Controllers
         private readonly IUsuarioRepositorio _usuarioRepositorio;
         private readonly IEmail _email;
         private readonly IAvalicaoRepositorio _avalicaoRepositorio;
+        private readonly IImagemRepositorio _imagemRepositorio;
 
-        public ClienteController(IAgendamentoRepositorio agendamentoRepositorio, ISessao sessao, IUsuarioRepositorio usuarioRepositorio, IEmail email, IAvalicaoRepositorio avalicaoRepositorio)
+        public ClienteController(IAgendamentoRepositorio agendamentoRepositorio, ISessao sessao, IUsuarioRepositorio usuarioRepositorio, IEmail email, IAvalicaoRepositorio avalicaoRepositorio, IImagemRepositorio imagemRepositorio)
         {
-
             _agendamentoRepositorio = agendamentoRepositorio;
             _sessao = sessao;
             _usuarioRepositorio = usuarioRepositorio;
             _email = email;
             _avalicaoRepositorio = avalicaoRepositorio;
+            _imagemRepositorio = imagemRepositorio;
         }
 
         public IActionResult Index()
@@ -36,6 +37,9 @@ namespace Aplicacao_Interativa.Controllers
 
             List<ServicoModel> servicos = _agendamentoRepositorio.BuscarServicos();
             ViewBag.Servicos = servicos;
+
+            List<ImagemModel> imagens = _imagemRepositorio.BuscarImagens();
+            ViewBag.Imagens = imagens;
 
             return View();
         }
@@ -84,6 +88,9 @@ namespace Aplicacao_Interativa.Controllers
             }
 
             ViewBag.AgendamentosCliente = viewModel;
+
+            var caminhoImagem = _imagemRepositorio.ObterCaminhoImagemUsuarioLogado(usuario.Id);
+            ViewBag.Imagem = caminhoImagem; 
 
             return View(usuario);
         }
@@ -194,5 +201,35 @@ namespace Aplicacao_Interativa.Controllers
                 return RedirectToAction("Perfil", "Cliente");
             }
         }
+        [HttpPost]
+        public IActionResult Apagar(string senha)
+        {
+            try
+            {
+                UsuarioModel usuario = _sessao.BuscarSessaoUsuario();
+
+                //Cria um usuário fake apenas para gerar a criptografia da senha
+                UsuarioModel usuarioParaCriptografia = new UsuarioModel();
+                string senhaCriptografada = _usuarioRepositorio.CriptografarSenha(usuarioParaCriptografia, senha);
+                
+
+                if (senhaCriptografada == usuario.Senha)
+                {
+                    _usuarioRepositorio.Apagar(usuario);
+                    _sessao.RemoverSessaoUsuario();
+
+                    return RedirectToAction("Index", "ClienteDeslogado");
+                }
+
+                TempData["MensagemErro"] = "Senha incorreta!";
+                return RedirectToAction("Perfil", "Cliente");
+            }
+            catch(Exception erro)
+            {
+                TempData["MensagemErro"] = $"Não foi possível deletar o perfil. Detalhes: {erro.Message}";
+                return RedirectToAction("Perfil", "Cliente");
+            }
+            
+        }        
     }
 }

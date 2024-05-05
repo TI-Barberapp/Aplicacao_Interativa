@@ -3,6 +3,7 @@ using System;
 using Aplicacao_Interativa.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Aplicacao_Interativa.Migrations
 {
     [DbContext(typeof(BancoContext))]
-    partial class BancoContextModelSnapshot : ModelSnapshot
+    [Migration("20240503193845_CriacaoTabelaImagens")]
+    partial class CriacaoTabelaImagens
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -156,12 +158,7 @@ namespace Aplicacao_Interativa.Migrations
                     b.Property<string>("CaminhoImgPerfil")
                         .HasColumnType("longtext");
 
-                    b.Property<int>("UsuarioId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UsuarioId");
 
                     b.ToTable("Imagens");
                 });
@@ -279,17 +276,6 @@ namespace Aplicacao_Interativa.Migrations
                         .IsRequired();
 
                     b.Navigation("Agendamento");
-                });
-
-            modelBuilder.Entity("Aplicacao_Interativa.Models.ImagemModel", b =>
-                {
-                    b.HasOne("Aplicacao_Interativa.Models.UsuarioModel", "Usuario")
-                        .WithMany()
-                        .HasForeignKey("UsuarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("Aplicacao_Interativa.Models.UsuarioModel", b =>

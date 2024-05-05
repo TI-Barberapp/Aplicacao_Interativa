@@ -29,6 +29,7 @@ namespace Aplicacao_Interativa
             builder.Services.AddScoped<IEmail, Email>();
             builder.Services.AddScoped<ITokenCacheService, TokenCacheService>();
             builder.Services.AddScoped<ISessao, Sessao>();
+            builder.Services.AddScoped<IImagemRepositorio, ImagemRepositorio>();
             builder.Services.AddSession(o => {
                 o.Cookie.HttpOnly = true;
                 o.Cookie.IsEssential = true;

@@ -1,6 +1,7 @@
 ﻿@model ServicoModel
 @{
     ViewData["Title"] = "Realizar Agendamento";
+    var caminhoImagem = "";
 }
 
 <head>
@@ -347,7 +348,28 @@
                                         }
                                     </div>
                                     <p class="card-text">@avaliacao.Comentario</p>
-                                    <p class="text-end">Cliente: @avaliacao.Agendamento?.Usuario?.Nome</p>
+
+                                    @if(ViewBag.Imagens == null)
+                                    {
+                                        caminhoImagem = "/img/site/default-profile-image.png";
+                                    }
+                                    else
+                                    {
+                                        @foreach (ImagemModel imagem in ViewBag.Imagens)
+                                        {
+                                            caminhoImagem = "/img/site/default-profile-image.png";
+                                            if (imagem.UsuarioId == avaliacao.Agendamento?.Usuario?.Id)
+                                            {
+                                                caminhoImagem = "/img/perfil/" + imagem.CaminhoImgPerfil;
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                    <div class="cliente-avaliacao d-flex align-items-center">
+                                        <img class="perfilimg me-2" src="@caminhoImagem" alt="Imagem Perfil" />
+                                        <p class="nome-cliente text-end mb-0">@avaliacao.Agendamento?.Usuario?.Nome</p>
+                                    </div>
                                 </div>
                             </li>
                         }
@@ -391,7 +413,7 @@
                         <div class="gallery-card">
 
                             <figure class="card-banner img-holder" style="--width: 422; --height: 550;">
-                                <img src="/img/gallery-1.jpg" width="422" height="550" loading="lazy" alt="Hair Cutting"
+                                <img src="/img/site/gallery-1.jpg" width="422" height="550" loading="lazy" alt="Hair Cutting"
                                      class="img-cover">
                             </figure>
 
@@ -414,7 +436,7 @@
                         <div class="gallery-card">
 
                             <figure class="card-banner img-holder" style="--width: 422; --height: 550;">
-                                <img src="/img/gallery-2.jpg" width="422" height="550" loading="lazy" alt="Hair Cutting"
+                                <img src="/img/site/gallery-2.jpg" width="422" height="550" loading="lazy" alt="Hair Cutting"
                                      class="img-cover">
                             </figure>
 
@@ -437,7 +459,7 @@
                         <div class="gallery-card">
 
                             <figure class="card-banner img-holder" style="--width: 422; --height: 550;">
-                                <img src="/img/gallery-3.jpg" width="422" height="550" loading="lazy" alt="Hair Cutting"
+                                <img src="/img/site/gallery-3.jpg" width="422" height="550" loading="lazy" alt="Hair Cutting"
                                      class="img-cover">
                             </figure>
 
@@ -460,7 +482,7 @@
                         <div class="gallery-card">
 
                             <figure class="card-banner img-holder" style="--width: 422; --height: 550;">
-                                <img src="/img/gallery-4.jpg" width="422" height="550" loading="lazy" alt="Hair Cutting"
+                                <img src="/img/site/gallery-4.jpg" width="422" height="550" loading="lazy" alt="Hair Cutting"
                                      class="img-cover">
                             </figure>
 

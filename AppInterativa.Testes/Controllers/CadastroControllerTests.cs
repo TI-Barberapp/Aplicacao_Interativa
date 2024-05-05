@@ -17,10 +17,7 @@ namespace AppInterativa.Testes.Controllers
             // Arrange
             var usuarioRepositorioMock = new Mock<IUsuarioRepositorio>();
             var tempDataMock = new Mock<ITempDataDictionary>();
-            var controller = new CadastroController(usuarioRepositorioMock.Object)
-            {
-                TempData = tempDataMock.Object
-            };
+            
 
             var novoUsuario = new UsuarioModel
             {

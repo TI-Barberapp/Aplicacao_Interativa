@@ -13,8 +13,9 @@ namespace Aplicacao_Interativa.Controllers
         private readonly IUsuarioRepositorio _usuarioRepositorio;
         private readonly IEmail _email;
         private readonly IAvalicaoRepositorio _avalicaoRepositorio;
+        private readonly IImagemRepositorio _imagemRepositorio;
 
-        public ClienteDeslogadoController(IAgendamentoRepositorio agendamentoRepositorio, ISessao sessao, IUsuarioRepositorio usuarioRepositorio, IEmail email, IAvalicaoRepositorio avalicaoRepositorio)
+        public ClienteDeslogadoController(IAgendamentoRepositorio agendamentoRepositorio, ISessao sessao, IUsuarioRepositorio usuarioRepositorio, IEmail email, IAvalicaoRepositorio avalicaoRepositorio, IImagemRepositorio imagemRepositorio)
         {
 
             _agendamentoRepositorio = agendamentoRepositorio;
@@ -22,6 +23,7 @@ namespace Aplicacao_Interativa.Controllers
             _usuarioRepositorio = usuarioRepositorio;
             _email = email;
             _avalicaoRepositorio = avalicaoRepositorio;
+            _imagemRepositorio = imagemRepositorio;
         }        
         public IActionResult Index()
         {
@@ -30,6 +32,9 @@ namespace Aplicacao_Interativa.Controllers
 
             List<ServicoModel> servicos = _agendamentoRepositorio.BuscarServicos();
             ViewBag.Servicos = servicos;
+
+            List<ImagemModel> imagens = _imagemRepositorio.BuscarImagens();
+            ViewBag.Imagens = imagens;
 
             //Se o usuário estiver logado retorna para a home
             var usuarioLogado = _sessao.BuscarSessaoUsuario();

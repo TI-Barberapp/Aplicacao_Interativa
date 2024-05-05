@@ -8,33 +8,7 @@ namespace Aplicacao_Interativa.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "Celular",
-                table: "Agendamentos");
-
-            migrationBuilder.DropColumn(
-                name: "Nome",
-                table: "Agendamentos");
-
-            migrationBuilder.AddColumn<int>(
-                name: "usuarioID",
-                table: "Agendamentos",
-                type: "int",
-                nullable: false,
-                defaultValue: 0);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Agendamentos_usuarioID",
-                table: "Agendamentos",
-                column: "usuarioID");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Agendamentos_Usuarios_usuarioID",
-                table: "Agendamentos",
-                column: "usuarioID",
-                principalTable: "Usuarios",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+            
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

@@ -25,7 +25,7 @@
     href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Rubik:wght@300,400;700&display=swap"
     rel="stylesheet">
     <link href="@Url.Content("/css/flaticon.min.css")" rel="stylesheet"/>
-    <link rel="preload" href="@Url.Content("/img/hero-banner.jpg")">
+    <link rel="preload" href="@Url.Content("/img/site/hero-banner.jpg")">
 </head>
 
 
@@ -38,7 +38,7 @@
       -->
 
       <section class="section hero has-before has-bg-image" id="home" aria-label="home"
-        style="background-image: url('/img/hero-banner.jpg')">
+        style="background-image: url('/img/site/hero-banner.jpg')">
         <div class="container">
 
           <h1 class="h1 hero-title2">Seu visual </h1>
@@ -223,7 +223,7 @@
       -->
 
       <section class="section pricing has-bg-image has-before" id="pricing" aria-label="pricing"
-        style="background-image: url('/img/pricing-bg.jpg')">
+        style="background-image: url('/img/site/pricing-bg.jpg')">
         <div class="container">
 
           <h2 class="h2 section-title text-center">Planos & KITS</h2>
@@ -338,56 +338,52 @@
             - #AVALIÇÃO
           -->
 
-        <section class="section" id="agendamentos">
+        <section class="section pb-0" id="agendamentos">
             <div class="container">
                 <h2 class="h2 section-title text-center">Avaliações</h2>
                 <div class="pricing-tab-container">
-                    <ul class="tab-filter">
-                        @foreach (AvaliacaoModel avaliacao in ViewBag.Avaliacoes)
-                        {
-                            <li data-filter="Acabamentos">
-                                <div class="avaliacao-card">
-                                    <h5 class="card-title">Serviço realizado por @avaliacao.Agendamento?.Barbeiro</h5>
-                                    <div class="avaliacao-estrelas">
-                                        @for (int i = 1; i <= 5; i++)
-                                        {
-                                            if (i <= avaliacao.Avaliacao)
-                                            {
-                                                <i class="star-fill bi bi-star-fill"></i>
-                                            }
-                                            else
-                                            {
-                                                <i class="star bi bi-star"></i>
-                                            }
-                                        }
-                                    </div>
-                                    <p class="card-text">@avaliacao.Comentario</p>
-
-                                    @if (ViewBag.Imagens == null)
+                    @foreach (AvaliacaoModel avaliacao in ViewBag.Avaliacoes)
+                    {
+                        <div class="avaliacao-card my-2">
+                            <h5 class="card-title">Serviço realizado por @avaliacao.Agendamento?.Barbeiro</h5>
+                            <div class="avaliacao-estrelas">
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    if (i <= avaliacao.Avaliacao)
                                     {
-                                        caminhoImagem = "/img/site/default-profile-image.png";
+                                        <i class="star-fill bi bi-star-fill"></i>
                                     }
                                     else
                                     {
-                                        @foreach (ImagemModel imagem in ViewBag.Imagens)
-                                        {
-                                            caminhoImagem = "/img/site/default-profile-image.png";
-                                            if (imagem.UsuarioId == avaliacao.Agendamento?.Usuario?.Id)
-                                            {
-                                                caminhoImagem = "/img/perfil/" + imagem.CaminhoImgPerfil;
-                                                break;
-                                            }
-                                        }
+                                        <i class="star bi bi-star"></i>
                                     }
+                                }
+                            </div>
+                            <p class="card-text">@avaliacao.Comentario</p>
 
-                                    <div class="cliente-avaliacao d-flex align-items-center">
-                                        <img class="perfilimg me-2" src="@caminhoImagem" alt="Imagem Perfil" />
-                                        <p class="nome-cliente text-end mb-0">@avaliacao.Agendamento?.Usuario?.Nome</p>
-                                    </div>
-                                </div>
-                            </li>
-                        }
-                    </ul>
+                            @if (ViewBag.Imagens == null)
+                            {
+                                caminhoImagem = "/img/site/default-profile-image.png";
+                            }
+                            else
+                            {
+                                @foreach (ImagemModel imagem in ViewBag.Imagens)
+                                {
+                                    caminhoImagem = "/img/site/default-profile-image.png";
+                                    if (imagem.UsuarioId == avaliacao.Agendamento?.Usuario?.Id)
+                                    {
+                                        caminhoImagem = "/img/perfil/" + imagem.CaminhoImgPerfil;
+                                        break;
+                                    }
+                                }
+                            }
+
+                            <div class="cliente-avaliacao d-flex align-items-center">
+                                <img class="perfilimg me-2" src="@caminhoImagem" alt="Imagem Perfil" />
+                                <p class="nome-cliente text-end mb-0">@avaliacao.Agendamento?.Usuario?.Nome</p>
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
         </section>
@@ -425,7 +421,7 @@
               <div class="gallery-card">
 
                 <figure class="card-banner img-holder" style="--width: 422; --height: 550;">
-                  <img src="/img/gallery-1.jpg" width="422" height="550" loading="lazy" alt="Hair Cutting"
+                  <img src="/img/site/gallery-1.jpg" width="422" height="550" loading="lazy" alt="Hair Cutting"
                     class="img-cover">
                 </figure>
 
@@ -448,7 +444,7 @@
               <div class="gallery-card">
 
                 <figure class="card-banner img-holder" style="--width: 422; --height: 550;">
-                  <img src="/img/gallery-2.jpg" width="422" height="550" loading="lazy" alt="Hair Cutting"
+                  <img src="/img/site/gallery-2.jpg" width="422" height="550" loading="lazy" alt="Hair Cutting"
                     class="img-cover">
                 </figure>
 
@@ -471,7 +467,7 @@
               <div class="gallery-card">
 
                 <figure class="card-banner img-holder" style="--width: 422; --height: 550;">
-                  <img src="/img/gallery-3.jpg" width="422" height="550" loading="lazy" alt="Hair Cutting"
+                  <img src="/img/site/gallery-3.jpg" width="422" height="550" loading="lazy" alt="Hair Cutting"
                     class="img-cover">
                 </figure>
 
@@ -494,7 +490,7 @@
               <div class="gallery-card">
 
                 <figure class="card-banner img-holder" style="--width: 422; --height: 550;">
-                  <img src="/img/gallery-4.jpg" width="422" height="550" loading="lazy" alt="Hair Cutting"
+                  <img src="/img/site/gallery-4.jpg" width="422" height="550" loading="lazy" alt="Hair Cutting"
                     class="img-cover">
                 </figure>
 

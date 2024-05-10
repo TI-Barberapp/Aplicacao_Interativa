@@ -79,7 +79,7 @@
               <div class="blog-card">
 
                 <figure class="card-banner img-holder" style="--width: 70; --height: 75;">
-                  <img src="/img/footer-blog-1.jpg" width="70" height="75" loading="lazy"
+                  <img src="~/img/site/footer-blog-1.jpg" width="70" height="75" loading="lazy"
                     alt="The beginners guide to Henna Brows in Brisbane" class="img-cover">
                 </figure>
 
@@ -103,7 +103,7 @@
               <div class="blog-card">
 
                 <figure class="card-banner img-holder" style="--width: 70; --height: 75;">
-                  <img src="/img/footer-blog-2.jpg" width="70" height="75" loading="lazy"
+                  <img src="~/img/site/footer-blog-2.jpg" width="70" height="75" loading="lazy"
                     alt="How do I get rid of unwanted hair on my face?" class="img-cover">
                 </figure>
 

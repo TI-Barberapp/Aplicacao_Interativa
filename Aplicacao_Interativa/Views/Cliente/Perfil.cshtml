@@ -7,6 +7,7 @@
 <head>
     <link href="@Url.Content("/css/avaliar.css")" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" />
+    <link rel="preload" href="@Url.Content("/img/site/hero-banner.jpg")">
 </head>
 
 
@@ -176,7 +177,14 @@
             </div>
         </div>
     </div>
-    <a class="btn btn mt-5" asp-action="Index" asp-controller="Cliente">Voltar</a>
+    @if (Model.Perfil == Aplicacao_Interativa.Enums.PerfilEnum.Barbeiro)
+    {
+        <a class="btn btn mt-5" asp-action="Index" asp-controller="Barbeiro">Voltar</a>
+    }
+    else
+    {
+        <a class="btn btn mt-5" asp-action="Index" asp-controller="Cliente">Voltar</a>        
+    }
 </div>
 
     

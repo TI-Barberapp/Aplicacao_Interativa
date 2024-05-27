@@ -2,6 +2,7 @@
 using Aplicacao_Interativa.Filters;
 using Aplicacao_Interativa.Helper;
 using Aplicacao_Interativa.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -61,6 +62,9 @@ namespace Aplicacao_Interativa.Controllers
             List<HorarioModel> horarios = _agendamentoRepositorio.BuscarHorarios();
             ViewBag.Horarios = horarios;
 
+            List<ProdutoModel> produtos = _agendamentoRepositorio.BuscarProdutos();
+            ViewBag.Produtos = produtos;    
+
             ViewBag.ServicoId = servicoId;
 
             return View(agendamento);
@@ -112,6 +116,8 @@ namespace Aplicacao_Interativa.Controllers
                         { 
                             //Efetivação do agendamento e envio para o banco
                             agendamento.usuarioID = usuarioId.Value;
+                            string? produtoId = HttpContext.Session.GetString("ProdutoId");
+                            agendamento.ProdutoID = produtoId ;
                             agendamento = _agendamentoRepositorio.Adicionar(agendamento);
                             TempData["MensagemSucesso"] = "O agendamento foi feito com sucesso";
                             
@@ -229,7 +235,26 @@ namespace Aplicacao_Interativa.Controllers
                 TempData["MensagemErro"] = $"Não foi possível deletar o perfil. Detalhes: {erro.Message}";
                 return RedirectToAction("Perfil", "Cliente");
             }
-            
-        }        
+        }
+        public IActionResult ArmazenarProdutoId()
+        {
+            string Id = Request.Form["ProdutoId"];
+
+            var IDsProdutos = HttpContext.Session.GetString("ProdutoId");
+            List<string> listaDeProdutos = new List<string>();
+            if (!string.IsNullOrEmpty(IDsProdutos))
+            {
+                listaDeProdutos = IDsProdutos.Split(',').ToList();
+            }
+
+            listaDeProdutos.Add(Id);
+
+            HttpContext.Session.SetString("ProdutoId", String.Join(",", listaDeProdutos));
+
+
+            return new EmptyResult();
+        }
+
+
     }
 }

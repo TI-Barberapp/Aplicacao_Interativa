@@ -16,8 +16,9 @@ namespace Aplicacao_Interativa.Data
         public DbSet<HorarioModel> Horarios { get; set; }
         public DbSet<AvaliacaoModel> Avalicoes { get; set; }
 		public DbSet<ImagemModel> Imagens { get; set; }
+        public DbSet<ProdutoModel> Produtos { get; set; }
 
-		protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new AgendamentoMap());
 

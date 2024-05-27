@@ -24,6 +24,10 @@ namespace Aplicacao_Interativa.Helper
         {
             return _bancoContext.Agendamentos.ToList();
         }
+        public List<ProdutoModel> BuscarProdutos()
+        {
+            return _bancoContext.Produtos.ToList();
+        }
         //Esse é um método para busca personalizada de agendamentos, baseado no barbeiro que está logado no sistema
         public List<AgendamentoModel> BuscarAgendamentosPeloNome(string nomeBarbeiro)
         {
@@ -94,6 +98,8 @@ namespace Aplicacao_Interativa.Helper
             return "00:00";
         }
 
+        
+
         public List<AgendamentoModel> BuscarAgendamentosPeloId(int id)
         {
             //Essa é a lista que reune todos os agendamentos
@@ -111,5 +117,6 @@ namespace Aplicacao_Interativa.Helper
             }
             return listaDeAgendamentosPorBarbeiro;
         }
+
     }
 }

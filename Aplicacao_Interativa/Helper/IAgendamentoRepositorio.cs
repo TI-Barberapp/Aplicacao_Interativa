@@ -9,6 +9,7 @@ namespace Aplicacao_Interativa.Helper
         List<AgendamentoModel> BuscarAgendamentosPeloNome(string nomeBarbeiro);
         List<ServicoModel> BuscarServicos();
         List<HorarioModel> BuscarHorarios();
+        List<ProdutoModel> BuscarProdutos();
         AgendamentoModel BuscarPorData(AgendamentoModel agendamento);
         List<HorarioModel> BuscarHorariosDisponiveis(DateTime data);
         string BuscarServicoPeloId(int id);

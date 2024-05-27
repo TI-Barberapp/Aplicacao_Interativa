@@ -84,3 +84,37 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+//Lógica para os butões de produto
+document.addEventListener('DOMContentLoaded', (event) => {
+    const produtoButtons = document.querySelectorAll('.produto-button');
+    const produtoForm = document.getElementById('produtoForm');
+    const produtoIdsInput = document.getElementById('ProdutoIds');
+
+    let selectedProductIds = [];
+
+    produtoButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            // Obtemos o ID do produto a partir do valor do input hidden dentro do form pai
+            const productId = button.parentElement.querySelector('input[name="ProdutoId"]').value;
+
+            // Verificamos se o ID do produto não é nulo ou vazio antes de adicioná-lo à lista
+            if (productId) {
+                selectedProductIds.push(productId);
+
+                // Exibimos uma mensagem de confirmação visual
+                const nomeProduto = button.getAttribute('data-nome');
+                const precoProduto = button.getAttribute('data-preco');
+                alert(`Produto ${nomeProduto} adicionado ao carrinho por R$ ${precoProduto}`);
+            } else {
+                // Se o ID do produto for nulo ou vazio, exibimos uma mensagem de erro
+                alert("Erro: ID do produto não encontrado!");
+            }
+        });
+    });
+
+    produtoForm.addEventListener('submit', (e) => {
+        // Antes de enviar o formulário, atualizamos o valor do campo oculto com os IDs dos produtos selecionados
+        produtoIdsInput.value = selectedProductIds.join(',');
+    });
+});

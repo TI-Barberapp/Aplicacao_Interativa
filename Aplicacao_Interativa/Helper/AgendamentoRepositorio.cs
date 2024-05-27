@@ -2,6 +2,7 @@
 using Aplicacao_Interativa.Models;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using System.Text;
 
 namespace Aplicacao_Interativa.Helper
 {
@@ -96,6 +97,30 @@ namespace Aplicacao_Interativa.Helper
             }
 
             return "00:00";
+        }
+
+        public StringBuilder BuscarProdutosPeloId(string produtoId)
+        {
+            List<ProdutoModel> produtos = BuscarProdutos();
+            string[] vetorString = produtoId.Split(",").ToArray();
+            StringBuilder produtosString = new StringBuilder();
+
+            if (vetorString.Length <= 1)
+                return produtosString;
+
+            for (int i = 0; i < vetorString.Length; i++)
+            {
+                int vetorInt = int.Parse(vetorString[i]);
+
+                foreach (ProdutoModel produto in produtos)
+                {
+                    if(produto.Id == vetorInt)
+                    {
+                        produtosString.Append($"{produto.Nome}, ");
+                    }
+                }
+            }
+            return produtosString;
         }
 
         

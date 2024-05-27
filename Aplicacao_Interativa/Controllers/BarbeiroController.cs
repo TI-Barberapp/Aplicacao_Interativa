@@ -32,13 +32,15 @@ namespace Aplicacao_Interativa.Controllers
                 var nomeUsuario = _usuarioRepositorio.BuscarNomeUsuarioPeloId(agendamento.usuarioID);
                 var nomeSevico = _agendamentoRepositorio.BuscarServicoPeloId(agendamento.ServicoId);
                 var horario = _agendamentoRepositorio.BuscarHorarioPeloId(agendamento.HorarioId);
+                var produtos = _agendamentoRepositorio.BuscarProdutosPeloId(agendamento.ProdutoID);
 
                 viewModel.Add(new AgendamentoViewModel
                 {
                     NomeUsuario = nomeUsuario,
                     NomeServico = nomeSevico,
                     DataAgendamento = agendamento.DataAgendamento,
-                    Horario = horario
+                    Horario = horario,
+                    Produto = produtos
                 });
             }
 

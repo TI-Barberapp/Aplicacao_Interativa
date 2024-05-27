@@ -10,7 +10,7 @@
         public int ServicoId { get; set; }
         public ServicoModel? Servico { get; set; }
         public int HorarioId { get; set; }
-        public string? ProdutoID { get; set; }
         public HorarioModel? Horario { get; set; }
+        public string? ProdutoID { get; set; }
     }
 }

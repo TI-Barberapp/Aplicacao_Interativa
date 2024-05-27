@@ -1,4 +1,5 @@
 ﻿using Aplicacao_Interativa.Models;
+using System.Text;
 
 namespace Aplicacao_Interativa.Helper
 {
@@ -15,5 +16,6 @@ namespace Aplicacao_Interativa.Helper
         string BuscarServicoPeloId(int id);
         string BuscarHorarioPeloId(int id);
         List<AgendamentoModel> BuscarAgendamentosPeloId(int id);
+        StringBuilder BuscarProdutosPeloId(string produtoId);
     }
 }

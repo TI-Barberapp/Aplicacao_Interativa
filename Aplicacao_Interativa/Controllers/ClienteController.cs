@@ -14,6 +14,7 @@ namespace Aplicacao_Interativa.Controllers
     [PaginaParaUsuarioLogado]
     public class ClienteController : Controller
     {
+        private static List<string> ListaProdutos = new List<string>();
         private readonly IAgendamentoRepositorio _agendamentoRepositorio;
         private readonly ISessao _sessao;
         private readonly IUsuarioRepositorio _usuarioRepositorio;
@@ -116,11 +117,16 @@ namespace Aplicacao_Interativa.Controllers
                         { 
                             //Efetivação do agendamento e envio para o banco
                             agendamento.usuarioID = usuarioId.Value;
-                            string? produtoId = HttpContext.Session.GetString("ProdutoId");
-                            agendamento.ProdutoID = produtoId ;
+                            string listaComoString = "";
+
+                            if (ListaProdutos.Count > 1)
+                            {
+                                listaComoString = string.Join(",", ListaProdutos);
+                            }
+                            agendamento.ProdutoID = listaComoString;
                             agendamento = _agendamentoRepositorio.Adicionar(agendamento);
                             TempData["MensagemSucesso"] = "O agendamento foi feito com sucesso";
-                            
+                            ListaProdutos.Clear();
 
                             //Configuração dos componentes presentes no e-mail e envio do mesmo
                             var usuarioLogado = _sessao.BuscarSessaoUsuario();
@@ -236,25 +242,13 @@ namespace Aplicacao_Interativa.Controllers
                 return RedirectToAction("Perfil", "Cliente");
             }
         }
-        public IActionResult ArmazenarProdutoId()
+        public IActionResult ArmazenarProdutoId(int ProdutoId)
         {
-            string Id = Request.Form["ProdutoId"];
+            string Id = ProdutoId.ToString();
 
-            var IDsProdutos = HttpContext.Session.GetString("ProdutoId");
-            List<string> listaDeProdutos = new List<string>();
-            if (!string.IsNullOrEmpty(IDsProdutos))
-            {
-                listaDeProdutos = IDsProdutos.Split(',').ToList();
-            }
-
-            listaDeProdutos.Add(Id);
-
-            HttpContext.Session.SetString("ProdutoId", String.Join(",", listaDeProdutos));
-
+            ListaProdutos.Add(Id);
 
             return new EmptyResult();
         }
-
-
     }
 }

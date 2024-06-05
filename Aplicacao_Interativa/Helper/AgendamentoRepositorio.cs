@@ -143,5 +143,45 @@ namespace Aplicacao_Interativa.Helper
             return listaDeAgendamentosPorBarbeiro;
         }
 
+        public ProdutoModel AdicionarProduto(ProdutoModel produto)
+        {
+            _bancoContext.Produtos.Add(produto);
+            _bancoContext.SaveChanges();
+
+            return produto;
+        }
+
+        public bool AtualizarEstoque(string listaProdutos)
+        {
+            string[] vetorId = listaProdutos.Split(",").ToArray();
+            List<ProdutoModel> produtos = BuscarProdutos();
+
+            foreach (string id in vetorId)
+            {
+                foreach (var produto in produtos)
+                {
+                    if (produto.QntEstoque > 0 || produto.QntEstoque != null)
+                    {
+                        if (produto.Id == int.Parse(id))
+                        {
+                            produto.QntEstoque -= 1;
+                        }
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+
+        public List<ProdutoModel> BuscarProdutosDisponiveis()
+        {
+            List<ProdutoModel> produtosDisponiveis = BuscarProdutos();
+            produtosDisponiveis.RemoveAll(produto => produto.QntEstoque <= 0 || produto.QntEstoque == null);
+            return produtosDisponiveis;
+        }
     }
 }

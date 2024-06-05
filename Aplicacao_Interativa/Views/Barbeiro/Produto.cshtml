@@ -1,0 +1,61 @@
+﻿@model ProdutoModel 
+@{
+    ViewData["Title"] = "Produtos";
+}
+
+<head>
+    <link href="@Url.Content("/css/avaliar.css")" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" />
+    <link rel="preload" href="@Url.Content("/img/site/hero-banner.jpg")">
+</head>
+
+<div class="avalia">
+    @if (TempData["MensagemSucesso"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData["MensagemSucesso"]
+        </div>
+    }
+    @if (TempData["MensagemErro"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["MensagemErro"]
+        </div>
+    }
+    <h1 class="mb-3 text-center">Cadastre um novo Produto</h1>
+    <form asp-action="Produto" asp-controller="Barbeiro" method="post" enctype="multipart/form-data">
+        <label class="form-label">Escolha a Imagem do Produto</label>
+        <input type="file" name="imagem" />
+        <div class="form-group">
+            <label class="form-label">Nome</label>
+            <input type="text" id="Nome" asp-for="Nome" required class="form-control" />
+        </div>
+        <div class="form-group">
+            <label class="form-label">Descrição</label>
+            <input type="text" id="Descricao" asp-for="Descricao" required class="form-control" />
+        </div>
+        <div class="form-group">
+            <label class="form-label">Preço</label>
+            <input type="number" step="0.01" id="Preco" asp-for="Preco" required class="form-control" />
+        </div>
+        <div class="form-group">
+            <label class="form-label">Quantidade</label>
+            <input type="number" id="Quantidade" asp-for="QntEstoque" required class="form-control" />
+        </div>        
+        
+        <div class="d-flex justify-content-between align-items-center mt-3">
+            <div>
+                <button type="submit" class="btn mt-4">Cadastrar Produto</button>
+            </div>
+            <div>
+                <a class="btn btn mt-5" asp-action="Index" asp-controller="Barbeiro">Voltar</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+
+
+
+                

@@ -17,5 +17,8 @@ namespace Aplicacao_Interativa.Helper
         string BuscarHorarioPeloId(int id);
         List<AgendamentoModel> BuscarAgendamentosPeloId(int id);
         StringBuilder BuscarProdutosPeloId(string produtoId);
+        ProdutoModel AdicionarProduto(ProdutoModel produto);
+        bool AtualizarEstoque(string listaProdutos);
+        List<ProdutoModel> BuscarProdutosDisponiveis();
     }
 }

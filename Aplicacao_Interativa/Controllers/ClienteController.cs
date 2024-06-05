@@ -63,7 +63,7 @@ namespace Aplicacao_Interativa.Controllers
             List<HorarioModel> horarios = _agendamentoRepositorio.BuscarHorarios();
             ViewBag.Horarios = horarios;
 
-            List<ProdutoModel> produtos = _agendamentoRepositorio.BuscarProdutos();
+            List<ProdutoModel> produtos = _agendamentoRepositorio.BuscarProdutosDisponiveis();
             ViewBag.Produtos = produtos;    
 
             ViewBag.ServicoId = servicoId;
@@ -123,6 +123,13 @@ namespace Aplicacao_Interativa.Controllers
                             {
                                 listaComoString = string.Join(",", ListaProdutos);
                             }
+
+                            if (!_agendamentoRepositorio.AtualizarEstoque(listaComoString))
+                            {
+                                TempData["MensagemErro"] = $"O produto escolhido está fora de estoque.";
+                                return RedirectToAction("Agendar", "Cliente");
+                            }
+
                             agendamento.ProdutoID = listaComoString;
                             agendamento = _agendamentoRepositorio.Adicionar(agendamento);
                             TempData["MensagemSucesso"] = "O agendamento foi feito com sucesso";
